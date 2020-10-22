@@ -1,6 +1,6 @@
 ﻿﻿<p align="center">
   <a href="https://codeperfectplus.github.io/audiobook/"><img src="https://capsule-render.vercel.app/api?type=rect&color=009ACD&height=100&section=header&text=audioBook&fontSize=80%&fontColor=ffffff" alt="website title image"></a>
-  <h2 align="center">👉 Liten to any PDF book with just few line of Python code👈</h2>
+  <h2 align="center">👉 Listen to any PDF book with just few line of Python code👈</h2>
 </p>
 
 <p align="center">
@@ -48,4 +48,5 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 
 ## Future Updates
 
-- speech speed control
+- increase/decrease speech speed
+- support to more file extensions
