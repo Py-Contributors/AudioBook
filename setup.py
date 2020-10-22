@@ -1,35 +1,26 @@
 import setuptools
- 
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
- 
+
 setuptools.setup(
-    #Here is the module name.
     name="audiobook",
-    #version of the module
-    version="1.0.0",
-    #Name of Author
+    version="1.0.2",
     author="CodePerfectPlus",
-    #your Email address
     author_email="deepak008@live.com",
-    #Small Description about module
-    description="listen your favourite audiobook",
+    description="Listen your favourite audiobook",
     long_description=long_description,
-    #Specifying that we are using markdown file for description
+    long_description_content_type='text/x-rst',
     long_description_content_type="text/markdown",
-    #Any link to reach this module, if you have any webpage or github profile
     url="https://github.com/codePerfectPlus/audiobook",
+    keywords="audiobook",
     packages=setuptools.find_packages(),
-    #classifiers like program is suitable for python3, just leave as it is.
     classifiers=[
+        "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         'Intended Audience :: End Users/Desktop',
-        'Intended Audience :: Developers',
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: Linux :: Linux',
-
+        'Intended Audience :: Developers',        
     ],
 )
