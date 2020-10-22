@@ -5,12 +5,11 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="audiobook",
-    version="1.0.2",
+    version="1.0.3",
     author="CodePerfectPlus",
     author_email="deepak008@live.com",
     description="Listen your favourite audiobook",
     long_description=long_description,
-    long_description_content_type='text/x-rst',
     long_description_content_type="text/markdown",
     url="https://github.com/codePerfectPlus/audiobook",
     keywords="audiobook",
@@ -21,6 +20,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         'Intended Audience :: End Users/Desktop',
-        'Intended Audience :: Developers',        
+        'Intended Audience :: Developers',
     ],
 )

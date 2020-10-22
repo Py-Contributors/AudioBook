@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
-import sys
 import pyttsx3
 import PyPDF2
 
 
-class Audiobook:
+class AudioBook:
     def __init__(self, book_path):
         self.book_path = book_path
 
