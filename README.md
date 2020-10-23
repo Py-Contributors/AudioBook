@@ -12,11 +12,12 @@
   <p align="center">
 <a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/pypi/status/audiobook.svg?style=for-the-badge" alt="pypi status"></a>
 <a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/pypi/dm/audiobook?style=for-the-badge" alt="download"></a>
-
+<a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/readthedocs/audiobook?style=for-the-badge" alt="docs"></a>
+<a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/librariesio/release/pypi/audiobook?style=for-the-badge" alt="dependices"></a>
 </p>
 <p align="center">
 <a href="https://discord.gg/JfbK3bS"><img src="https://img.shields.io/discord/758030555005714512.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge" alt="discord invite"></a>
-<img src="https://img.shields.io/github/last-commit/codeperfectplus/audiobook?style=for-the-badge" alt="last contributions">
+<img src="https://img.shields.io/github/pipenv/locked/dependency-version/codeperfectplus/audiobook/pyttsx3?style=for-the-badge" alt="pyttsx3">
 <a href="https://api.github.com/repos/codeperfectplus/audiobook/contributors"><img src="https://img.shields.io/github/contributors/codeperfectplus/audiobook?style=for-the-badge" alt="total contributors"></a>
 </p>
 
