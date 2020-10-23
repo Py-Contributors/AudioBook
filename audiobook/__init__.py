@@ -16,7 +16,7 @@ class AudioBook:
 
             # initiatiazing the pyttsx3 and setting voice speed to 125
             engine = pyttsx3.init()
-            engine.setProperty('rate', 125)
+            engine.setProperty("rate", 125)
 
             start_page = int(input("Please enter the page number: "))
             for num in range(start_page, pages):

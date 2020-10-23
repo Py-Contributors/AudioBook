@@ -27,6 +27,8 @@
 
 ## Installation
 
+Install it from pypi.org.
+
 ```sh
 pip install audiobook
 ```
@@ -48,5 +50,4 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 
 ## Future Updates
 
-- increase/decrease speech speed
-- support to more file extensions
+- speech speed control

@@ -1,2 +1,2 @@
-pyttsx3==2.90
-PyPDF2==1.26.0
+pyttsx3
+PyPDF2
