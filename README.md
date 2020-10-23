@@ -38,6 +38,10 @@ ab.text_to_speech()
 
 Audibook is python module to listen your fav pdf book.
 
+## Documentation
+
+Read Detailed [Documentation here](https://audiobook.readthedocs.io/)
+
 ### Linux installation requirements
 
 - If you are on a linux system and if the voice output is not working , then :
