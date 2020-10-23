@@ -8,7 +8,7 @@ setuptools.setup(
     version="1.0.4",
     author="CodePerfectPlus",
     author_email="deepak008@live.com",
-    description="Listen your favourite audiobook",
+    description="Listen to your favourite audiobook",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/codePerfectPlus/audiobook",
