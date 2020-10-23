@@ -10,8 +10,9 @@
 <img src="https://img.shields.io/github/languages/code-size/codeperfectplus/audiobook?style=for-the-badge" alt="code size">
   </p>
   <p align="center">
-<img src="https://img.shields.io/pypi/status/audiobook.svg?style=for-the-badge" alt="pypi status">
-<img src="https://img.shields.io/pypi/dm/audiobook?style=for-the-badge" alt="download">
+<a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/pypi/status/audiobook.svg?style=for-the-badge" alt="pypi status"></a>
+<a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/pypi/dm/audiobook?style=for-the-badge" alt="download"></a>
+
 </p>
 <p align="center">
 <a href="https://discord.gg/JfbK3bS"><img src="https://img.shields.io/discord/758030555005714512.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge" alt="discord invite"></a>
