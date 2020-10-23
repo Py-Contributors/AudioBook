@@ -39,6 +39,15 @@ ab.text_to_speech()
 
 The audiobook is a python module to listen to your fav pdf book.
 
+## Test
+
+Run tests:
+
+```sh
+pip install -r requirements.txt
+python -m unittest tests
+```
+
 ## Documentation
 
 Read Detailed [Documentation here](https://audiobook.readthedocs.io/)
