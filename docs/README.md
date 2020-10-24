@@ -1,23 +1,24 @@
 <p align="center">
-  <a href="https://codeperfectplus.github.io/audiobook/"><img src="https://capsule-render.vercel.app/api?type=rect&color=009ACD&height=100&section=header&text=audioBook&fontSize=80%&fontColor=ffffff" alt="website title image"></a>
+  <a href="https://py-contributors.github.io/audiobook/"><img src="https://capsule-render.vercel.app/api?type=rect&color=009ACD&height=100&section=header&text=audioBook&fontSize=80%&fontColor=ffffff" alt="website title image"></a>
   <h2 align="center">👉 Listen to any PDF book with just a few line of Python code👈</h2>
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/github/pipenv/locked/python-version/codeperfectplus/audiobook?style=for-the-badge" alt="repo language">
-<a href="https://github.com/codeperfectplus/audiobook/stargazers"><img src="https://img.shields.io/github/stars/codeperfectplus/audiobook?style=for-the-badge" alt="github stars"></a>
-<a href="https://github.com/codeperfectplus/audiobook/network/members"><img src="https://img.shields.io/github/forks/codeperfectplus/audiobook?style=for-the-badge" alt="github forks"></a>
-<img src="https://img.shields.io/github/languages/code-size/codeperfectplus/audiobook?style=for-the-badge" alt="code size">
+<img src="https://img.shields.io/github/pipenv/locked/python-version/py-contributors/audiobook?style=for-the-badge" alt="repo language">
+<a href="https://github.com/py-contributors/audiobook/stargazers"><img src="https://img.shields.io/github/stars/py-contributors/audiobook?style=for-the-badge" alt="github stars"></a>
+<a href="https://github.com/py-contributors/audiobook/network/members"><img src="https://img.shields.io/github/forks/py-contributors/audiobook?style=for-the-badge" alt="github forks"></a>
+<img src="https://img.shields.io/github/languages/code-size/py-contributors/audiobook?style=for-the-badge" alt="code size">
   </p>
   <p align="center">
 <a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/pypi/status/audiobook.svg?style=for-the-badge" alt="pypi status"></a>
 <a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/pypi/dm/audiobook?style=for-the-badge" alt="download"></a>
-
+<a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/readthedocs/audiobook?style=for-the-badge" alt="docs"></a>
+<a href="https://pypi.org/project/audiobook/"><img src="https://img.shields.io/librariesio/release/pypi/audiobook?style=for-the-badge" alt="dependices"></a>
 </p>
 <p align="center">
 <a href="https://discord.gg/JfbK3bS"><img src="https://img.shields.io/discord/758030555005714512.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge" alt="discord invite"></a>
-<img src="https://img.shields.io/github/last-commit/codeperfectplus/audiobook?style=for-the-badge" alt="last contributions">
-<a href="https://api.github.com/repos/codeperfectplus/audiobook/contributors"><img src="https://img.shields.io/github/contributors/codeperfectplus/audiobook?style=for-the-badge" alt="total contributors"></a>
+<img src="https://img.shields.io/github/pipenv/locked/dependency-version/py-contributors/audiobook/pyttsx3?style=for-the-badge" alt="pyttsx3">
+<a href="https://api.github.com/repos/py-contributors/audiobook/contributors"><img src="https://img.shields.io/github/contributors/py-contributors/audiobook?style=for-the-badge" alt="total contributors"></a>
 </p>
 
 ## Installation
@@ -37,6 +38,15 @@ ab.text_to_speech()
 ## Usages
 
 The audiobook is a python module to listen to your fav pdf book.
+
+## Test
+
+Run tests:
+
+```sh
+pip install -r requirements.txt
+python -m unittest tests
+```
 
 ## Documentation
 
@@ -64,7 +74,7 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 ## Author
 
 - Module : AudioBook
-- Author  : CodePerfectPlus
+- Author  : py-contributors
 - Language : Python
 
 <img align="right" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=for-the-badge">
