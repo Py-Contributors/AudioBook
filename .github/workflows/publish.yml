@@ -13,7 +13,7 @@ jobs:
         python-version: 3.8
     - name: Run setup
       run: >-
-        python setup.py sdist bdist_wheel
+        python setup.py sdist
     - name: Publish distribution to PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
