@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="audiobook",
+    name="a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8",
     version="1.0.4",
-    author="CodePerfectPlus",
-    author_email="deepak008@live.com",
+    author="JoeAmedeo",
+    author_email="joseph.p.amedeo@gmail.com",
     description="Listen to your favourite audiobook",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/codePerfectPlus/audiobook",
+    url="https://github.com/JoeAmedeo/audiobook",
     keywords="audiobook",
     packages=setuptools.find_packages(),
     classifiers=[
