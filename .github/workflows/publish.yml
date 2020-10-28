@@ -1,0 +1,21 @@
+name: Publish package to PyPI
+on: push
+jobs:
+ build-and-publish:
+  name: Build and Publish to PyPI
+  runs-on: ubuntu-latest
+  if: startsWith(github.ref, 'refs/tags')
+  steps:
+    - uses: actions/checkout@v2
+    - name: Use Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Run setup
+      run: >-
+        python setup.py sdist
+    - name: Publish distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        user: __token__
+        password: ${{ secrets.pypi_password }}
