@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/github/pipenv/locked/python-version/py-contributors/audiobook?style=for-the-badge" alt="repo language">
+<img src="https://img.shields.io/badge/Python-3.8.5-lightgrey?style=for-the-badge" alt="repo language">
 <a href="https://github.com/py-contributors/audiobook/stargazers"><img src="https://img.shields.io/github/stars/py-contributors/audiobook?style=for-the-badge" alt="github stars"></a>
 <a href="https://github.com/py-contributors/audiobook/network/members"><img src="https://img.shields.io/github/forks/py-contributors/audiobook?style=for-the-badge" alt="github forks"></a>
 <img src="https://img.shields.io/github/languages/code-size/py-contributors/audiobook?style=for-the-badge" alt="code size">
