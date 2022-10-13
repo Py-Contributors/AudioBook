@@ -1,3 +1,4 @@
+import os
 import pyttsx3
 import PyPDF2
 import logging
@@ -21,23 +22,41 @@ class AudioBook:
     def __init__(self, speed="normal"):
         self.engine = pyttsx3.init()
         self.engine.setProperty("rate", speed_dict[speed])
-
-    def create_json_book(self, pdf_file_path):
+        
+    def create_json_book(self, pdf_file_path, password=None):
+        
+        if not os.path.exists(pdf_file_path):
+            raise FileNotFoundError("File not found!")
+        
+        if not pdf_file_path.endswith(".pdf"):
+            raise ValueError("File must be a pdf!")
+        
         book_dict = {}
         with open(pdf_file_path, "rb") as fp:
             pdfReader = PyPDF2.PdfFileReader(fp)
+            if pdfReader.isEncrypted:
+                logging.info("File is encrypted, trying to decrypt...")
+                pdfReader.decrypt(password)
             pages = pdfReader.numPages
             for num in range(0, pages):
                 pageObj = pdfReader.getPage(num)
                 text = pageObj.extractText()
                 book_dict[num] = text
         return book_dict, pages
-
-    def read_book(self, pdf_file_path):
+        
+    def read_book(self, pdf_file_path, password=None):
+        if not os.path.exists(pdf_file_path):
+            raise FileNotFoundError("File not found!")
+        
+        if not pdf_file_path.endswith(".pdf"):
+            raise ValueError("File must be a pdf!")
+        
         with open(pdf_file_path, "rb") as fp:
             pdfReader = PyPDF2.PdfFileReader(fp)
+            if pdfReader.isEncrypted:
+                logging.info("File is encrypted, trying to decrypt...")
+                pdfReader.decrypt(password)
             pages = pdfReader.numPages
-
             speak_text(self.engine, f"The book has total {str(pages)} pages!")
             speak_text(self.engine, "Please enter the page number: ")
             start_page = int(input("Please enter the page number: ")) - 1
