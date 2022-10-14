@@ -68,10 +68,13 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 - Speech-Speed Control
 - Support more extensions
 - Save the audiobook for future
-
 ## Project status
 
-## V1.0.0
+This project is currently in development. Any contributions are welcome.
+
+## Changelog
+
+**V2.0.0**
 
 - [x] Save Audio Book locally
 - [x] Listen to the book
