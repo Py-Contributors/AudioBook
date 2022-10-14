@@ -78,3 +78,9 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 - Language : Python
 
 <img align="right" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=for-the-badge">
+
+## Contributors
+
+<a href="https://github.com/Py-Contributors/audiobook/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Py-Contributors/audiobook"/>
+</a>
