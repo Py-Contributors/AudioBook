@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://py-contributors.github.io/audiobook/"><img src="https://capsule-render.vercel.app/api?type=rect&color=009ACD&height=100&section=header&text=audioBook&fontSize=80%&fontColor=ffffff" alt="website title image"></a>
-  <h2 align="center">👉 Listen to any PDF book with just a few line of Python code👈</h2>
+  <h2 align="center">👉 Listen to any PDF book with a few lines of Python code👈</h2>
 </p>
 
 <p align="center">
@@ -23,7 +23,7 @@
 
 ## Installation
 
-Install it from [pypi](https://pypi.org/project/audiobook/)
+Install using [pypi](https://pypi.org/project/audiobook/)
 
 ```sh
 pip install audiobook
@@ -37,7 +37,7 @@ ab.text_to_speech()
 
 ## Usages
 
-The audiobook is a python module to listen to your fav pdf book.
+The audiobook is a python module for listening to your favourite PDF book.
 
 ## Test
 
@@ -52,9 +52,9 @@ python -m unittest tests
 
 Read Detailed [Documentation here](https://audiobook.readthedocs.io/)
 
-### Linux installation requirements
+### Linux Installation Requirements
 
-- If you are on a linux system and if the voice output is not working , then :
+- If you are using a Linux system and the voice output is not working, then :
     Install espeak , ffmpeg and libespeak1 as shown below:
 
 ```sh
@@ -63,9 +63,9 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 
 ## Roadmap
 
-- speech speed control
+- Speech-Speed Control
 - Support more extensions
-- save the audiobook for future
+- Save the audiobook for future
 
 ## Project status
 
@@ -78,3 +78,9 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 - Language : Python
 
 <img align="right" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=for-the-badge">
+
+## Contributors
+
+<a href="https://github.com/Py-Contributors/audiobook/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Py-Contributors/audiobook"/>
+</a>
