@@ -6,6 +6,8 @@ import logging
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
 
+supported_file_types = (".pdf",  ".txt")
+
 speed_dict = {
     "slow": 100,
     "normal": 150,
@@ -45,12 +47,13 @@ class AudioBook:
         """
         if not os.path.exists(file_path):
             raise FileNotFoundError("File not found!")
+
+        if not file_path.endswith(supported_file_types):
+            raise ValueError("File format not supported!")
       
     def pdf_to_json(self, input_file_path, password=None):
-        """ 
-            Converts pdf to json format
-        """
-        book_dict = {}
+        """ sub method to create json book from pdf file"""
+        json_book = {}
         with open(input_file_path, "rb") as fp:
             pdfReader = PyPDF2.PdfFileReader(fp)
             if pdfReader.isEncrypted:
@@ -60,48 +63,51 @@ class AudioBook:
             for num in range(0, pages):
                 pageObj = pdfReader.getPage(num)
                 text = pageObj.extractText()
-                book_dict[num] = text
-        return book_dict, pages
+                json_book[num] = text
+        return json_book, pages
     
     def txt_to_json(self, input_file_path):
-        book_dict = {}
+        """ sub method to create json book from txt file """
+        json_book = {}
         with open(input_file_path, "r") as fp:
             file_data = fp.read()
         
         # split text into pages of 2000 characters
         for i in range(0, len(file_data), 2000):
-            book_dict[i] = file_data[i:i+2000]
-        return book_dict, len(book_dict)
+            json_book[i] = file_data[i:i+2000]
+        return json_book, len(json_book)
         
     def create_json_book(self, input_file_path, password=None):
+        """ method to create json book from input file 
+            it calls respective method based on file format """
         self.file_check(input_file_path)
         if input_file_path.endswith(".pdf"):
-            book_dict, pages = self.pdf_to_json(input_file_path, password)
+            json_book, pages = self.pdf_to_json(input_file_path, password)
         elif input_file_path.endswith(".txt"):
-            book_dict, pages = self.txt_to_json(input_file_path)
-        return book_dict, pages
+            json_book, pages = self.txt_to_json(input_file_path)
+        return json_book, pages
     
+
     def save_audio(self, input_file_path, password=None):
+        """ method to save audio files in folder """
         self.file_check(input_file_path)
-        with open(input_file_path, "rb") as fp:
-            basename = os.path.basename(input_file_path).split(".")[0]
-            os.makedirs(basename, exist_ok=True)
-            logging.info('Saving audio files in folder: {}'.format(basename))
-            pdfReader = PyPDF2.PdfFileReader(fp)
-            if pdfReader.isEncrypted:
-                logging.info("File is encrypted, trying to decrypt...")
-                pdfReader.decrypt(password)
-            pages = pdfReader.numPages
-            for num in range(0, pages):
-                pageObj = pdfReader.getPage(num)
-                text = pageObj.extractText()
-                self.engine.save_to_file(text, os.path.join(basename, basename + "_" + (str(num) + ".mp3")))
-                self.engine.runAndWait()
+        logging.info("Creating your audiobook... Please wait...")
+        json_book, pages = self.create_json_book(input_file_path, password)
+        
+        book_name = os.path.basename(input_file_path).split(".")[0]
+        os.makedirs(book_name, exist_ok=True)
+        logging.info('Saving audio files in folder: {}'.format(book_name))
+        
+        for page_num, text in json_book.items():
+            self.engine.save_to_file(text, os.path.join(book_name, book_name + "_page_" + (str(page_num+1) + ".mp3")))
+            self.engine.runAndWait()
                 
+    
     def read_book(self, input_file_path, password=None):
+        """ method to read the book """
         self.file_check(input_file_path)
-        print("Creating your audiobook... Please wait...")
-        book_dict, pages = self.create_json_book(input_file_path, password)
+        logging.info("Creating your audiobook... Please wait...")
+        json_book, pages = self.create_json_book(input_file_path, password)
         speak_text(self.engine, f"The book has total {str(pages)} pages!")
         speak_text(self.engine, "Please enter the page number: ", display=False)
         start_page = int(input("Please enter the page number: ")) - 1
@@ -114,7 +120,7 @@ class AudioBook:
                 start_page = int(input("Please enter the page number: "))
 
             speak_text(self.engine, f"Reading page {str(start_page+1)}")
-            pageText = book_dict[start_page]
+            pageText = json_book[start_page]
             speak_text(self.engine, pageText, display=False)
 
             user_input = input("Please Select an option: \n 1. Type 'r' to read again: \n 2. Type 'p' to read previous page\n 3. Type 'n' to read next page\n 4. Type 'q' to quit:\n 5. Type page number to read that page:\n")
