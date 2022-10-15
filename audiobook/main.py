@@ -168,7 +168,7 @@ class AudioBook:
         text_lines = ws.get_text_lines_from_web_article()
         if len(text_lines) > 0:
             title = ws.get_title_from_article()
-            mp3_file = os.path.join(os.getcwd(), f"{title}.mp3")
+            mp3_file = os.path.join(os.getcwd(), f"{''.join(letter for letter in title if letter.isalnum())}.mp3")
             logger.info(f'saving {article_url} to {mp3_file}')
             self.engine.save_to_file(title+"".join(text_lines), mp3_file)
             self.engine.runAndWait()
