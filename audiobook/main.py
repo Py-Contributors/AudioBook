@@ -3,6 +3,10 @@ import pyttsx3
 import PyPDF2
 import logging
 
+logging.basicConfig()
+
+from audiobook.article_web_scraper import WebScraper
+
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
 
@@ -20,6 +24,7 @@ def speak_text(engine, text, display=True):
     engine.say(text)
     engine.runAndWait()
 
+html_text_formattings = ["p", "a", "b", "strong", "i", "em", "mark", "small", "del", "ins", "sub", "sup"]
 
 class AudioBook:
     """
@@ -31,6 +36,8 @@ class AudioBook:
         create_json_book: Creates json book from input file by calling respective method
         save_audio: saves audio files in folder
         read_book: reads the book
+        read_web_article: read web article from a given url
+        save_web_article: save web article to a .mp3 file from a given url
         
     sample usage:
         ab = AudioBook(speed="normal")
@@ -143,3 +150,30 @@ class AudioBook:
             else:
                 user_input = input("Please Select an option: \n 1. Type 'r' to read again: \n 2. Type 'p' to read previous page\n 3. Type 'n' to read next page\n 4. Type 'q' to quit:\n 5. Type page number to read that page:\n")
                 continue
+
+    def read_web_article(self, article_url):
+        """ read web article from a article_url containing an <article> tag """
+        ws = WebScraper(article_url)
+        text_lines = ws.get_text_lines_from_web_article()
+        if len(text_lines) > 0:
+            logger.info(f'reading {len(text_lines)} from {article_url}')
+            speak_text(self.engine, ws.get_title_from_article(), display=False)
+            speak_text(self.engine, ''.join(text_lines), display=False)
+        else:
+            raise ValueError("<article> tag has no text.")
+    
+    def save_web_article(self, article_url):
+        """ save web article from a article_url containing an <article> tag """
+        ws = WebScraper(article_url)
+        text_lines = ws.get_text_lines_from_web_article()
+        if len(text_lines) > 0:
+            title = ws.get_title_from_article()
+            mp3_file = os.path.join(os.getcwd(), f"{title}.mp3")
+            logger.info(f'saving {article_url} to {mp3_file}')
+            self.engine.save_to_file(title+"".join(text_lines), mp3_file)
+            self.engine.runAndWait()
+        else:
+            raise ValueError("<article> tag has no text.")
+        
+
+        
