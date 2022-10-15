@@ -31,8 +31,10 @@ pip install audiobook
 
 ```python
 from audiobook import AudioBook
-ab = AudioBook("file_path")
-ab.text_to_speech()
+ab = AudioBook(speed="normal") # argument: Speech-Speed="slow/normal/fast"
+
+ab.save_audio(file_path, password=None) # save audio file 
+ab.read_book(file_path, password=None) # listen to the book
 ```
 
 ## Usages
@@ -66,10 +68,23 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 - Speech-Speed Control
 - Support more extensions
 - Save the audiobook for future
-
 ## Project status
 
-- Alpha
+This project is currently in development. Any contributions are welcome.
+
+## Changelog
+
+**V2.0.0**
+
+- [x] Save Audio Book locally
+- [x] Listen to the book
+- [x] Speech-speed control
+- [x] Read password-protected PDF
+- [x] Create JSON file for the book  
+- [ ] Change the voice of the narrator
+
+- [ ] Support more extensions
+
 
 ## Author
 
