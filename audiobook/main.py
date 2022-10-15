@@ -24,8 +24,6 @@ def speak_text(engine, text, display=True):
     engine.say(text)
     engine.runAndWait()
 
-html_text_formattings = ["p", "a", "b", "strong", "i", "em", "mark", "small", "del", "ins", "sub", "sup"]
-
 class AudioBook:
     """
     AudioBook class
