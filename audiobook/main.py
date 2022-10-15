@@ -5,7 +5,7 @@ import logging
 
 logging.basicConfig()
 
-from audiobook.article_web_scraper import WebScraper
+from audiobook.article_web_scraper import ArticleWebScraper
 
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
@@ -151,7 +151,7 @@ class AudioBook:
 
     def read_web_article(self, article_url):
         """ read web article from a article_url containing an <article> tag """
-        ws = WebScraper(article_url)
+        ws = ArticleWebScraper(article_url)
         text_lines = ws.get_text_lines_from_web_article()
         if len(text_lines) > 0:
             logger.info(f'reading {len(text_lines)} from {article_url}')
@@ -162,7 +162,7 @@ class AudioBook:
     
     def save_web_article(self, article_url):
         """ save web article from a article_url containing an <article> tag """
-        ws = WebScraper(article_url)
+        ws = ArticleWebScraper(article_url)
         text_lines = ws.get_text_lines_from_web_article()
         if len(text_lines) > 0:
             title = ws.get_title_from_article()

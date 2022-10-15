@@ -4,9 +4,9 @@ from bs4 import BeautifulSoup
 
 html_text_formattings = ["p", "a", "b", "strong", "i", "em", "mark", "small", "del", "ins", "sub", "sup"]
 
-class WebScraper:
+class ArticleWebScraper:
     """
-    WebScraper class
+    ArticleWebScraper class
     
     methods:
         get_text_lines_from_web_article:
@@ -31,6 +31,7 @@ class WebScraper:
                 for text_formatting in html_text_formattings
             ]
             text_lines = []
+            # dict.keys(dict.fromkeys(lines))) removes duplicate words
             for article_text_tag_item in article_text_tag_items:
                 for article_text_tag in article_text_tag_item:
                     text_line = dict.keys(dict.fromkeys([tag.string for tag in article_text_tag if tag.string is not None])) 
