@@ -1,8 +1,3 @@
-from cgitb import text
-import os
-import pyttsx3
-import PyPDF2
-import logging
 import requests
 
 from bs4 import BeautifulSoup
