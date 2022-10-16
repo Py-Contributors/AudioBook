@@ -1,56 +1,51 @@
 import os
-import pyttsx3
 import PyPDF2
+import pyttsx3
+import ebooklib
+from ebooklib import epub
+
+from audiobook.utils import response_to_text
+from audiobook.utils import speak_text
+from audiobook.utils import text_preprocessing
+
+from audiobook.config import speed_dict
+from audiobook.config import supported_file_types
+
 import logging
 
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
 
-supported_file_types = (".pdf",  ".txt")
-
-speed_dict = {
-    "slow": 100,
-    "normal": 150,
-    "fast": 200}
-
-
-def speak_text(engine, text, display=True):
-    if display:
-        print(text)
-    engine.say(text)
-    engine.runAndWait()
-
 
 class AudioBook:
     """
     AudioBook class
-    
+
     methods:
         file_check: checks if file exists
         pdf_to_json: converts pdf to json format
         create_json_book: Creates json book from input file by calling respective method
         save_audio: saves audio files in folder
         read_book: reads the book
-        
+
     sample usage:
         ab = AudioBook(speed="normal")
         ab.read_book(file_path, password="abcd")
     """
-    
-    def __init__(self, speed="normal"):
+
+    def __init__(self, speed="normal", volume=1.0):
         self.engine = pyttsx3.init()
         self.engine.setProperty("rate", speed_dict[speed])
-    
-    def file_check(self, file_path):
-        """ 
-        checks file format and if file exists
-        """
-        if not os.path.exists(file_path):
+        self.engine.setProperty("volume", volume)
+
+    def file_check(self, input_file_path):
+        """ checks file format and if file exists """
+        if not os.path.exists(input_file_path):
             raise FileNotFoundError("File not found!")
 
-        if not file_path.endswith(supported_file_types):
-            raise ValueError("File format not supported!")
-      
+        if not input_file_path.endswith(supported_file_types):
+            raise IsADirectoryError("File format not supported!")
+
     def pdf_to_json(self, input_file_path, password=None):
         """ sub method to create json book from pdf file"""
         json_book = {}
@@ -65,45 +60,63 @@ class AudioBook:
                 text = pageObj.extractText()
                 json_book[num] = text
         return json_book, pages
-    
+
     def txt_to_json(self, input_file_path):
         """ sub method to create json book from txt file """
         json_book = {}
         with open(input_file_path, "r") as fp:
-            file_data = fp.read()
-        
-        # split text into pages of 2000 characters
-        for i in range(0, len(file_data), 2000):
-            json_book[i] = file_data[i:i+2000]
+            file_txt_data = fp.read()
+
+        file_txt_data = text_preprocessing(file_txt_data)
+        for i in range(0, len(file_txt_data), 2000):
+            json_book[i] = file_txt_data[i:i + 2000]
         return json_book, len(json_book)
-        
+
+    def mobi_to_json(self, input_file_path):
+        """ sub method to create json book from mobi file """
+        pass
+
+    def docs_to_json(self, input_file_path):
+        """ sub method to create json book from docs file """
+        pass
+
+    def epub_to_json(self, input_file_path):
+        json_book = {}
+        book = epub.read_epub(input_file_path)
+        text = " ".join([response_to_text(chapter.get_body_content()) for chapter in book.get_items_of_type(ebooklib.ITEM_DOCUMENT)])
+        for i in range(1, len(text) + 1, 2000):
+            page_num = i // 2000
+            json_book[page_num] = text[i:i + 2000]
+
+        return json_book, len(json_book)
+
     def create_json_book(self, input_file_path, password=None):
-        """ method to create json book from input file 
+        """ method to create json book from input file
             it calls respective method based on file format """
         self.file_check(input_file_path)
         if input_file_path.endswith(".pdf"):
             json_book, pages = self.pdf_to_json(input_file_path, password)
         elif input_file_path.endswith(".txt"):
             json_book, pages = self.txt_to_json(input_file_path)
+        elif input_file_path.endswith(".epub"):
+            json_book, pages = self.epub_to_json(input_file_path)
         return json_book, pages
-    
 
     def save_audio(self, input_file_path, password=None):
         """ method to save audio files in folder """
         self.file_check(input_file_path)
         logging.info("Creating your audiobook... Please wait...")
         json_book, pages = self.create_json_book(input_file_path, password)
-        
+
         book_name = os.path.basename(input_file_path).split(".")[0]
         os.makedirs(book_name, exist_ok=True)
         logging.info('Saving audio files in folder: {}'.format(book_name))
-        
+
         for page_num, text in json_book.items():
-            self.engine.save_to_file(text, os.path.join(book_name, book_name + "_page_" + (str(page_num+1) + ".mp3")))
+            self.engine.save_to_file(text, os.path.join(book_name, book_name + "_page_" + (str(page_num + 1) + ".mp3")))
             self.engine.runAndWait()
-                
-    
-    def read_book(self, input_file_path, password=None):
+
+    def read_book(self, input_file_path, password=None):  # argument to be added, save_audio=False, save_json_book=False
         """ method to read the book """
         self.file_check(input_file_path)
         logging.info("Creating your audiobook... Please wait...")
@@ -111,7 +124,7 @@ class AudioBook:
         speak_text(self.engine, f"The book has total {str(pages)} pages!")
         speak_text(self.engine, "Please enter the page number: ", display=False)
         start_page = int(input("Please enter the page number: ")) - 1
-                        
+
         reading = True
         while reading:
             if start_page > pages or start_page < 0:
