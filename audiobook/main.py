@@ -109,7 +109,7 @@ class AudioBook:
     def read_book(self, input_file_path, password=None):
         """ method to read the book """
         self.file_check(input_file_path)
-        logging.info(f"Creating your {type}... Please wait...")
+        logger.info(f"Creating your {type}... Please wait...")
         json_book, pages = self.create_json_book(input_file_path, password)
         self.read_json(json_book, pages, "audiobook")
         
@@ -154,8 +154,7 @@ class AudioBook:
     def save_json_to_audio(self, json, audio_name):
         """ save json to a list of file in a folder having audio_name, one for each page """
         os.makedirs(audio_name, exist_ok=True)
-        logging.info('Saving audio files in folder: {}'.format(audio_name))
-        print(json)
+        logger.info('Saving audio files in folder: {}'.format(audio_name))
         for page_num, text in json.items():
             self.engine.save_to_file(text, os.path.join(audio_name, audio_name + "_page_" + (str(page_num+1) + ".mp3")))
             self.engine.runAndWait()
@@ -175,8 +174,7 @@ class AudioBook:
         json_article, _ = ws.get_json_from_web_article()
         if len(json_article) > 0:
             title = ws.get_title_from_article()
-            current_dir = os.getcwd()
-            folder_name = input(f"Choose name for article \"{title}\". It will be stored in {current_dir}\n")
+            folder_name = input(f"Choose name for article \"{title}\". It will be stored in {os.getcwd()}\n")
             self.save_json_to_audio(json_article, folder_name)
         else:
             raise ValueError("<article> tag is empty.")
