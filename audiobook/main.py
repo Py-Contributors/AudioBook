@@ -79,6 +79,8 @@ class AudioBook:
             json_book, pages = txt_to_json(input_book_path)
         elif input_book_path.endswith(".epub"):
             json_book, pages = epub_to_json(input_book_path)
+        elif input_book_path.endswith(".mobi"):
+            json_book, pages = mobi_to_json(input_book_path)
         elif input_book_path.startswith("http"):
             json_book, pages = html_to_json(input_book_path)
             
