@@ -5,16 +5,21 @@ import pyttsx3
 import ebooklib
 from ebooklib import epub
 
+import logging
+logger = logging.getLogger("PyPDF2")
+logger.setLevel(logging.INFO)
+
 from audiobook.utils import response_to_text
 from audiobook.utils import speak_text
 from audiobook.utils import text_preprocessing
 from audiobook.utils import load_json
 from audiobook.utils import write_json_file
 
+from audiobook.article_web_scraper import ArticleWebScraper
+
 from audiobook.config import speed_dict
 from audiobook.config import supported_file_types
 
-import logging
 
 expand_usr = os.path.expanduser("~")
 BOOK_DIR = os.path.join(expand_usr, "audiobook/library")
@@ -22,7 +27,6 @@ os.makedirs(BOOK_DIR, exist_ok=True)
 
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
-
 
 class AudioBook:
     """
@@ -32,9 +36,12 @@ class AudioBook:
         file_check: checks if file exists
         pdf_to_json: converts pdf to json format
         create_json_book: Creates json book from input file by calling respective method
-        save_audio: saves audio files in folder
+        read_json: reads a json file
+        save_json_to_audio: save .mp3 audios from a json file in a folder
+        save_book_audio: saves audio files in folder
         read_book: reads the book
-
+        read_web_article: read web article from a given url
+        save_web_article_audio: save web article to a .mp3 file from a given url
     sample usage:
         ab = AudioBook(speed="normal")
         ab.read_book(file_path, password="abcd")
@@ -123,7 +130,7 @@ class AudioBook:
 
         return json_book, pages
 
-    def save_audio(self, input_file_path, password=None):
+   def save_audio(self, input_file_path, password=None):
         """ method to save audio files in folder """
         self.file_check(input_file_path)
 
@@ -145,7 +152,7 @@ class AudioBook:
         for page_num, text in tqdm(json_book.items()):
             self.engine.save_to_file(text, os.path.join(book_name, book_name + "_page_" + (str(page_num)) + ".mp3"))
             self.engine.runAndWait()
-
+    
     def read_book(self, input_file_path, password=None):  # argument to be added, save_audio=False, save_json_book=False
         """ method to read the book """
         self.file_check(input_file_path)
@@ -195,3 +202,35 @@ class AudioBook:
             else:
                 user_input = input("Please Select an option: \n 1. Type 'r' to read again: \n 2. Type 'p' to read previous page\n 3. Type 'n' to read next page\n 4. Type 'q' to quit:\n 5. Type page number to read that page:\n")
                 continue
+
+
+    def save_json_to_audio(self, json, audio_name):
+        """ save json to a list of file in a folder having audio_name, one for each page """
+        os.makedirs(audio_name, exist_ok=True)
+        logger.info('Saving audio files in folder: {}'.format(audio_name))
+        for page_num, text in json.items():
+            self.engine.save_to_file(text, os.path.join(audio_name, audio_name + "_page_" + (str(page_num+1) + ".mp3")))
+            self.engine.runAndWait()
+
+    def read_web_article(self, article_url):
+        """ read web article from a article_url containing an <article> tag """
+        ws = ArticleWebScraper(article_url)
+        json_article, pages = ws.get_json_from_web_article()
+        if len(json_article) > 0:
+            self.read_json(json_article, pages, "article")
+        else:
+            raise ValueError("<article> tag has no text.")
+    
+    def save_web_article_audio(self, article_url):
+        """ save web article from a article_url containing an <article> tag """
+        ws = ArticleWebScraper(article_url)
+        json_article, _ = ws.get_json_from_web_article()
+        if len(json_article) > 0:
+            title = ws.get_title_from_article()
+            folder_name = input(f"Choose name for article \"{title}\". It will be stored in {os.getcwd()}\n")
+            self.save_json_to_audio(json_article, folder_name)
+        else:
+            raise ValueError("<article> tag is empty.")
+        
+
+        
