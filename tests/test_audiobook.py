@@ -1,7 +1,5 @@
 from audiobook import AudioBook
 import unittest
-from PyPDF2.errors import PdfReadError
-
 
 class TestAudioBook(unittest.TestCase):
     def test_invalidPathNumeric(self):
@@ -19,7 +17,12 @@ class TestAudioBook(unittest.TestCase):
             ab = AudioBook('normal')
             ab.txt_to_json('oiawhgaiurgieurghergerg')
 
-    def test_fileIsNotPDF(self):
-        with self.assertRaises(PdfReadError):
-            ab = AudioBook('normal')
-            ab.pdf_to_json(__file__)
+    def test_openDirectory(self):
+        with self.assertRaises(IsADirectoryError):
+            ab = AudioBook()
+            ab.read_book('/')
+
+    def test_fileDoesNotExist(self):
+        with self.assertRaises(FileNotFoundError):
+            ab = AudioBook()
+            ab.read_book('oiawhgaiurgieurghergerg')

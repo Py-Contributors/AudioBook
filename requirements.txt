@@ -1,3 +1,4 @@
-pyttsx3
-PyPDF2
-beautifulsoup4
+pyttsx3==2.90
+PyPDF2==2.11.1
+ebooklib==0.17.1
+beautifulsoup4==4.11.1
