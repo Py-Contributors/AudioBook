@@ -1,6 +1,4 @@
 import os
-import json
-import re
 import PyPDF2
 import pyttsx3
 import ebooklib
@@ -55,7 +53,7 @@ class AudioBook:
             return "You have no books in your library"
         print("You Have total {} books in your library".format(len(total_books)))
         return total_books
-    
+
     def file_check(self, input_file_path):
         """ checks file format and if file exists """
         if not os.path.exists(input_file_path):
@@ -120,9 +118,9 @@ class AudioBook:
             json_book, pages = self.txt_to_json(input_file_path)
         elif input_file_path.endswith(".epub"):
             json_book, pages = self.epub_to_json(input_file_path)
-        
+
         write_json_file(json_book, os.path.join(BOOK_DIR, filename))
-    
+
         return json_book, pages
 
     def save_audio(self, input_file_path, password=None):
@@ -143,7 +141,7 @@ class AudioBook:
         """ method to read the book """
         self.file_check(input_file_path)
         filename = os.path.basename(input_file_path).split(".")[0] + ".json"
-        
+
         # if json book already exists, load it from library
         if os.path.exists(os.path.join(BOOK_DIR, filename)):
             logging.info("Loading json book from {}".format(filename))

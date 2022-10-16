@@ -1,17 +1,19 @@
 from bs4 import BeautifulSoup
 import re
 import json
-import os
 
 regex = re.compile(r'[\n\r\t]')
+
 
 def load_json(filename):
     with open(filename, "r") as fp:
         return json.load(fp)
 
+
 def write_json_file(json_data, filename):
     with open(filename, "w") as fp:
         json.dump(json_data, fp)
+
 
 def text_preprocessing(input_text):
     preprocessed_text = [regex.sub("", t) for t in input_text]
