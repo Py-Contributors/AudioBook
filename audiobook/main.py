@@ -126,10 +126,10 @@ class AudioBook:
     def save_audio(self, input_file_path, password=None):
         """ method to save audio files in folder """
         self.file_check(input_file_path)
-        
+
         json_filename = os.path.basename(input_file_path).split(".")[0] + ".json"
         book_name = os.path.basename(input_file_path).split(".")[0]
-        
+
         # if json book already exists, load it from library
         if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
             print("Book already exists in library")
