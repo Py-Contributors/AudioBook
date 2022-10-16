@@ -15,16 +15,16 @@ def load_json(filename):
     with open(filename, "r") as fp:
         return json.load(fp)
 
-
 def write_json_file(json_data, filename):
     with open(filename, "w") as fp:
         json.dump(json_data, fp)
 
 def text_preprocessing(input_text):
-    preprocessed_text = [regex.sub("", t) for t in input_text]
-    preprocessed_text = [re.sub(' +', ' ', t) for t in preprocessed_text]
+    """ function to preprocess text """
+    preprocessed_text = regex.sub("", input_text) 
+    preprocessed_text = re.sub(' +', ' ', preprocessed_text)
     return preprocessed_text
-
+                         
 def pdf_to_json(input_book_path, password=None):
     """ sub method to create json book from pdf file"""
     json_book = {}
@@ -44,14 +44,12 @@ def txt_to_json(input_book_path):
     json_book = {}
     with open(input_book_path, "r") as fp:
         file_txt_data = fp.read()
+    file_txt_data = text_preprocessing(file_txt_data)
     for i in range(0, len(file_txt_data), 2000):
         page_num = i // 2000
         json_book[str(page_num)] = file_txt_data[i:i + 2000]
     return json_book, len(json_book)     
 
-def mobi_to_json(input_book_path):
-    """ sub method to create json book from mobi file """
-    pass
 
 def docs_to_json(input_book_path):
     """ sub method to create json book from docs file """
@@ -72,6 +70,7 @@ def html_to_json(url):
     json_book = {}
     article_scraper = ArticleWebScraper(url)
     page_data = article_scraper.get_page_data()
+    page_data = text_preprocessing(page_data)
     for i in range(0, len(page_data), 2000):
         page_num = i // 2000
         json_book[str(page_num)] = page_data[i:i + 2000]
@@ -86,9 +85,9 @@ def response_to_text(chapter):
     """
     soup = BeautifulSoup(chapter, 'html.parser')
     extracted_text = [para.get_text() for para in soup.find_all('p')]
+    extracted_text = ' '.join(extracted_text)
     preprocessed_text = text_preprocessing(extracted_text)
-    # remove unicode characters
-    return ' '.join(preprocessed_text)
+    return preprocessed_text
 
 
 def speak_text(engine, text, display=True):
@@ -106,6 +105,7 @@ def mobi_to_json(input_book_path):
     with open(filepath, "r", encoding='utf-8') as fp:
         content = fp.read()
     book_data = html2text.html2text(content)
+    book_data = text_preprocessing(book_data)
     
     for i in range(0, len(book_data), 2000):
         page_num = i // 2000
@@ -113,11 +113,3 @@ def mobi_to_json(input_book_path):
 
     return json_book, len(json_book) 
     
-#mobi_to_json(r"C:\Users\dr\Downloads\sample1.mobi")
-# def file_check(self, input_book_path):
-#     """ checks file format and if file exists """
-#     if not os.path.exists(input_book_path):
-#         raise FileNotFoundError("File not found!")
-
-#     if not input_book_path.endswith(supported_file_types):
-#         raise IsADirectoryError("File format not supported!")
