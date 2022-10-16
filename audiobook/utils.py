@@ -4,7 +4,9 @@ import json
 import PyPDF2
 import ebooklib
 from ebooklib import epub
+import mobi
 
+import html2text
 regex = re.compile(r'[\n\r\t]')
 
 from audiobook.article_web_scraper import ArticleWebScraper
@@ -18,13 +20,12 @@ def write_json_file(json_data, filename):
     with open(filename, "w") as fp:
         json.dump(json_data, fp)
 
-
 def text_preprocessing(input_text):
     preprocessed_text = [regex.sub("", t) for t in input_text]
     preprocessed_text = [re.sub(' +', ' ', t) for t in preprocessed_text]
     return preprocessed_text
 
-def pdf_to_json(self, input_book_path, password=None):
+def pdf_to_json(input_book_path, password=None):
     """ sub method to create json book from pdf file"""
     json_book = {}
     with open(input_book_path, "rb") as fp:
@@ -38,7 +39,7 @@ def pdf_to_json(self, input_book_path, password=None):
             json_book[str(page_num)] = extracted_text
     return json_book, pages
 
-def txt_to_json(self, input_book_path):
+def txt_to_json(input_book_path):
     """ sub method to create json book from txt file """
     json_book = {}
     with open(input_book_path, "r") as fp:
@@ -48,15 +49,15 @@ def txt_to_json(self, input_book_path):
         json_book[str(page_num)] = file_txt_data[i:i + 2000]
     return json_book, len(json_book)     
 
-def mobi_to_json(self, input_book_path):
+def mobi_to_json(input_book_path):
     """ sub method to create json book from mobi file """
     pass
 
-def docs_to_json(self, input_book_path):
+def docs_to_json(input_book_path):
     """ sub method to create json book from docs file """
     pass
 
-def epub_to_json(self, input_book_path):
+def epub_to_json(input_book_path):
     json_book = {}
     book = epub.read_epub(input_book_path)
     text = " ".join([response_to_text(chapter.get_body_content()) for chapter in book.get_items_of_type(ebooklib.ITEM_DOCUMENT)])
@@ -66,7 +67,7 @@ def epub_to_json(self, input_book_path):
 
     return json_book, len(json_book)
 
-def html_to_json(self, url):
+def html_to_json(url):
     """ method to create json book from web article """
     json_book = {}
     article_scraper = ArticleWebScraper(url)
@@ -98,6 +99,21 @@ def speak_text(engine, text, display=True):
     engine.runAndWait()
 
 
+def mobi_to_json(input_book_path):
+    """ sub method to create json book from mobi file """
+    json_book = {}
+    tempdir, filepath = mobi.extract(input_book_path)
+    with open(filepath, "r", encoding='utf-8') as fp:
+        content = fp.read()
+    book_data = html2text.html2text(content)
+    
+    for i in range(0, len(book_data), 2000):
+        page_num = i // 2000
+        json_book[str(page_num)] = book_data[i:i + 2000]
+
+    return json_book, len(json_book) 
+    
+#mobi_to_json(r"C:\Users\dr\Downloads\sample1.mobi")
 # def file_check(self, input_book_path):
 #     """ checks file format and if file exists """
 #     if not os.path.exists(input_book_path):
