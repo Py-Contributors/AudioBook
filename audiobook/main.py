@@ -1,4 +1,5 @@
 import os
+from tqdm import tqdm
 import PyPDF2
 import pyttsx3
 import ebooklib
@@ -73,8 +74,8 @@ class AudioBook:
             pages = pdfReader.numPages
             for page_num in range(0, pages):
                 pageObj = pdfReader.getPage(page_num)
-                text = pageObj.extractText()
-                json_book[str(page_num)] = text
+                extracted_text = pageObj.extractText()
+                json_book[str(page_num)] = extracted_text
         return json_book, pages
 
     def txt_to_json(self, input_file_path):
@@ -82,10 +83,9 @@ class AudioBook:
         json_book = {}
         with open(input_file_path, "r") as fp:
             file_txt_data = fp.read()
-
-        file_txt_data = text_preprocessing(file_txt_data)
-        for page_num in range(0, len(file_txt_data), 2000):
-            json_book[str(page_num)] = file_txt_data[page_num:page_num + 2000]
+        for i in range(0, len(file_txt_data), 2000):
+            page_num = i // 2000
+            json_book[str(page_num)] = file_txt_data[i:i + 2000]
         return json_book, len(json_book)
 
     def mobi_to_json(self, input_file_path):
@@ -126,26 +126,35 @@ class AudioBook:
     def save_audio(self, input_file_path, password=None):
         """ method to save audio files in folder """
         self.file_check(input_file_path)
-        logging.info("Creating your audiobook... Please wait...")
-        json_book, pages = self.create_json_book(input_file_path, password)
-
+        
+        json_filename = os.path.basename(input_file_path).split(".")[0] + ".json"
         book_name = os.path.basename(input_file_path).split(".")[0]
-        os.makedirs(book_name, exist_ok=True)
-        logging.info('Saving audio files in folder: {}'.format(book_name))
+        
+        # if json book already exists, load it from library
+        if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
+            print("Book already exists in library")
+            logging.info("Loading json book from {}".format(json_filename))
+            json_book = load_json(os.path.join(BOOK_DIR, json_filename))
+            pages = len(json_book)
+        else:
+            print("Creating your audiobook... Please wait...")
+            json_book, pages = self.create_json_book(input_file_path, password)
 
-        for page_num, text in json_book.items():
-            self.engine.save_to_file(text, os.path.join(book_name, book_name + "_page_" + (str(page_num + 1) + ".mp3")))
+        os.makedirs(book_name, exist_ok=True)
+        print('Saving audio files in folder: {}'.format(book_name))
+        for page_num, text in tqdm(json_book.items()):
+            self.engine.save_to_file(text, os.path.join(book_name, book_name + "_page_" + (str(page_num)) + ".mp3"))
             self.engine.runAndWait()
 
     def read_book(self, input_file_path, password=None):  # argument to be added, save_audio=False, save_json_book=False
         """ method to read the book """
         self.file_check(input_file_path)
-        filename = os.path.basename(input_file_path).split(".")[0] + ".json"
+        json_filename = os.path.basename(input_file_path).split(".")[0] + ".json"
 
         # if json book already exists, load it from library
-        if os.path.exists(os.path.join(BOOK_DIR, filename)):
-            logging.info("Loading json book from {}".format(filename))
-            json_book = load_json(os.path.join(BOOK_DIR, filename))
+        if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
+            logging.info("Loading json book from {}".format(json_filename))
+            json_book = load_json(os.path.join(BOOK_DIR, json_filename))
             pages = len(json_book)
         else:
             print("Creating your audiobook... Please wait...")

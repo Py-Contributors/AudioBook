@@ -30,6 +30,7 @@ def response_to_text(chapter):
     soup = BeautifulSoup(chapter, 'html.parser')
     extracted_text = [para.get_text() for para in soup.find_all('p')]
     preprocessed_text = text_preprocessing(extracted_text)
+    # remove unicode characters
     return ' '.join(preprocessed_text)
 
 
