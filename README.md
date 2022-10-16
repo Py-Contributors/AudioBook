@@ -31,10 +31,16 @@ pip install audiobook
 
 ```python
 from audiobook import AudioBook
-ab = AudioBook(speed="normal") # argument: Speech-Speed="slow/normal/fast"
+# argument: Speech-Speed="slow/normal/fast", volume = 0.0 to 1.0
+ab = AudioBook(speed="normal", volume=1.0) 
 
-ab.save_audio(file_path, password=None) # save audio file 
-ab.read_book(file_path, password=None) # listen to the book
+# if file is password protected, pass password as argument
+
+ab.save_audio(file_path) # save audio file 
+ab.read_book(file_path) # listen to the book
+ab.create_json_book(file_path) # create json file of the book
+
+ab.get_library() # get all the books in your library
 ```
 
 ## Usages
