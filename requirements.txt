@@ -4,3 +4,4 @@ ebooklib==0.17.1
 beautifulsoup4==4.11.1
 html2text==2020.1.16
 mobi==0.3.3
+PyMuPDF==1.20.2
