@@ -112,4 +112,3 @@ def mobi_to_json(input_book_path):
         json_book[str(page_num)] = book_data[i:i + 2000]
 
     return json_book, len(json_book) 
-    

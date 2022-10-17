@@ -1,8 +1,5 @@
 import requests
-
 from bs4 import BeautifulSoup
-
-html_text_formattings = ["p", "a", "b", "strong", "i", "em", "mark", "small", "del", "ins", "sub", "sup"]
 
 class ArticleWebScraper:
     """
@@ -28,7 +25,6 @@ class ArticleWebScraper:
     
     def get_page_data(self):
         """ returns a json from a non-empty <article> tag """
-        json_book = {}
         response = requests.get(self.article_url)
         
         if response.status_code != 200:
@@ -37,5 +33,4 @@ class ArticleWebScraper:
         soup = BeautifulSoup(response.content, "html.parser")
         
         text_data = soup.getText().replace("\n","")
-        
         return text_data
