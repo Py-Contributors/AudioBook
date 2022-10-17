@@ -81,6 +81,13 @@ This project is currently in development. Any contributions are welcome.
 
 ## Changelog
 
+**V2.0.1**
+
+- [x] Mobi file support
+- [x] Epub file support
+- [x] User can now save the audiobook for future
+- [x] User library added    
+
 **V2.0.0**
 
 - [x] Save Audio Book locally
@@ -88,8 +95,10 @@ This project is currently in development. Any contributions are welcome.
 - [x] Speech-speed control
 - [x] Read password-protected PDF
 - [x] Create JSON file for the book  
-- [ ] Change the voice of the narrator
 
+** Upcoming changes**
+
+- [ ] Change the voice of the narrator
 - [ ] Support more extensions
 
 
