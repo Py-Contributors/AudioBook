@@ -1,4 +1,4 @@
-
+import fitz
 import os
 from tqdm import tqdm
 import pyttsx3
@@ -154,3 +154,32 @@ class AudioBook:
             else:
                 user_input = input("Please Select an option: \n 1. Type 'r' to read again: \n 2. Type 'p' to read previous page\n 3. Type 'n' to read next page\n 4. Type 'q' to quit:\n 5. Type page number to read that page:\n")
                 continue
+                    
+    def highlight_text(self, pdf_file_path, page, duplicate_text, password=None):
+        if not os.path.exists(pdf_file_path):
+            raise FileNotFoundError("File not found!")
+        
+        if not pdf_file_path.endswith(".pdf"):
+            raise ValueError("File must be a pdf!")
+        ### READ IN PDF
+        open_pdf =  fitz.open(pdf_file_path)
+        # Idenifying  if pdf is encrypted and decrypting pdf
+        if open_pdf.metadata["encryption"] is not None:
+            return True
+        open_pdf.authenticate(password)
+            
+        #Highlighting  duplicate texts
+        
+        duplicate_found = 0
+        
+        # Loop through all duplicates
+        for i in duplicate_text:
+            ### SEARCH
+            duplicate_found += 1
+            all_text =  page.search_for(i)
+
+            ### HIGHLIGHT
+            for inst in all_text:
+                highlight = page.add_highlight_annot(inst)
+            highlight.update()
+        return duplicate_found
