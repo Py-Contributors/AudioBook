@@ -1,22 +1,19 @@
+# Audio book main file
 
 import os
-from re import I
 from tqdm import tqdm
 import pyttsx3
 import logging
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
 
-from audiobook.utils import response_to_text
 from audiobook.utils import speak_text
-from audiobook.utils import text_preprocessing
 from audiobook.utils import load_json
 from audiobook.utils import write_json_file
 
 from audiobook.utils import pdf_to_json
 from audiobook.utils import txt_to_json
 from audiobook.utils import mobi_to_json
-from audiobook.utils import docs_to_json
 from audiobook.utils import epub_to_json
 from audiobook.utils import html_to_json
 
@@ -69,10 +66,14 @@ class AudioBook:
             it calls respective method based on file format """
         json_filename = os.path.basename(input_book_path).split(".")[0] + ".json"
         
+        if not os.path.exists(input_book_path):
+            raise FileNotFoundError("File not found")
+    
         if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
             json_book = load_json(os.path.join(BOOK_DIR, json_filename))
             pages = len(json_book)
             return json_book, pages
+        
         elif input_book_path.endswith(".pdf"):
             json_book, pages = pdf_to_json(input_book_path, password)
         elif input_book_path.endswith(".txt"):
@@ -83,6 +84,8 @@ class AudioBook:
             json_book, pages = mobi_to_json(input_book_path)
         elif input_book_path.startswith("http"):
             json_book, pages = html_to_json(input_book_path)
+        else:
+            raise NotImplementedError("File format not supported yet, please raise an issue on github")
             
         write_json_file(json_book, os.path.join(BOOK_DIR, json_filename))
 
