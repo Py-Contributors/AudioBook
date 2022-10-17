@@ -36,7 +36,9 @@ ab = AudioBook(speed="normal", volume=1.0)
 
 # if file is password protected, pass password as argument
 
-ab.save_audio(file_path) # save audio file 
+# save_page_wise audio/whole book in one mp3 file
+ab.save_audio(self, input_book_path, password=None, save_page_wise=False): 
+
 ab.read_book(file_path) # listen to the book
 ab.create_json_book(file_path) # create json file of the book
 

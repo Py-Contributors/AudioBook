@@ -1,4 +1,3 @@
-# Audio book main file
 
 import os
 from tqdm import tqdm
@@ -7,13 +6,16 @@ import logging
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
 
+from audiobook.utils import response_to_text
 from audiobook.utils import speak_text
+from audiobook.utils import text_preprocessing
 from audiobook.utils import load_json
 from audiobook.utils import write_json_file
 
 from audiobook.utils import pdf_to_json
 from audiobook.utils import txt_to_json
 from audiobook.utils import mobi_to_json
+from audiobook.utils import docs_to_json
 from audiobook.utils import epub_to_json
 from audiobook.utils import html_to_json
 
@@ -66,10 +68,8 @@ class AudioBook:
             it calls respective method based on file format """
         json_filename = os.path.basename(input_book_path).split(".")[0] + ".json"
         
-        if not os.path.exists(input_book_path):
-            raise FileNotFoundError("File not found")
-    
         if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
+            print("Book already exists in library, reading from library")
             json_book = load_json(os.path.join(BOOK_DIR, json_filename))
             pages = len(json_book)
             return json_book, pages
@@ -84,35 +84,39 @@ class AudioBook:
             json_book, pages = mobi_to_json(input_book_path)
         elif input_book_path.startswith("http"):
             json_book, pages = html_to_json(input_book_path)
-        else:
-            raise NotImplementedError("File format not supported yet, please raise an issue on github")
-            
+        
         write_json_file(json_book, os.path.join(BOOK_DIR, json_filename))
 
         return json_book, pages
 
-    def save_audio(self, input_book_path, password=None):
+    def save_audio(self, input_book_path, password=None, save_page_wise=False):
         """ method to save audio files in folder """
-        json_book, pages = self.create_json_book(input_book_path, password)
+        json_book, _ = self.create_json_book(input_book_path, password)
         
         book_name = os.path.basename(input_book_path).split(".")[0]
         os.makedirs(book_name, exist_ok=True)
         
         print('Saving audio files in folder: {}'.format(book_name))
-        for page_num, text in tqdm(json_book.items()):
-            self.engine.save_to_file(text, os.path.join(book_name, 
-                                                        book_name + 
-                                                        "_page_" + 
-                                                        (str(page_num)) + 
-                                                        ".mp3"))
+        
+        if save_page_wise:
+            for page_num, text in tqdm(json_book.items()):
+                self.engine.save_to_file(text, os.path.join(book_name, 
+                                                            book_name + 
+                                                            "_page_" + 
+                                                            (str(page_num)) + 
+                                                            ".mp3"))
+                self.engine.runAndWait()
+
+        elif not save_page_wise:
+            all_text = " ".join([text for text in json_book.values()])
+            self.engine.save_to_file(all_text, os.path.join(book_name, book_name + ".mp3"))
             self.engine.runAndWait()
-    
+            
     def read_book(self, input_book_path, password=None):
         """ method to read the book 
         
         input_book_path: filepath, url path or book name
         """
-        
         json_book, pages = self.create_json_book(input_book_path, password)
         
         speak_text(self.engine, f"The book has total {str(pages)} pages!")
