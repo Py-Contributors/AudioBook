@@ -1,6 +1,5 @@
 
 import os
-from re import I
 from tqdm import tqdm
 import pyttsx3
 import logging
