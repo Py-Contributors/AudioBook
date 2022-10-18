@@ -1,9 +1,8 @@
 
-from importlib.metadata import metadata
 import os
-from tqdm import tqdm
 import pyttsx3
 import logging
+from tqdm import tqdm
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
 

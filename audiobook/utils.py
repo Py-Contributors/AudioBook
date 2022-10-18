@@ -1,11 +1,12 @@
-from bs4 import BeautifulSoup
 import re
 import os
+import mobi
 import json
 import PyPDF2
 import ebooklib
 from ebooklib import epub
-import mobi
+from bs4 import BeautifulSoup
+
 
 import html2text
 regex = re.compile(r'[\n\r\t]')
