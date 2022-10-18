@@ -1,6 +1,4 @@
 
-from curses import meta
-from heapq import merge
 from importlib.metadata import metadata
 import os
 from tqdm import tqdm
@@ -95,9 +93,9 @@ class AudioBook:
 
     def save_audio(self, input_book_path, password=None, save_page_wise=False):
         """ method to save audio files in folder """
-        json_book, _ = self.create_json_book(input_book_path, password)
+        json_book, metadata = self.create_json_book(input_book_path, password)
         
-        book_name = os.path.basename(input_book_path).split(".")[0]
+        book_name = metadata['book_name']
         os.makedirs(book_name, exist_ok=True)
         
         print('Saving audio files in folder: {}'.format(book_name))
