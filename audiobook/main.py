@@ -1,4 +1,7 @@
 
+from curses import meta
+from heapq import merge
+from importlib.metadata import metadata
 import os
 from tqdm import tqdm
 import pyttsx3
@@ -69,25 +72,26 @@ class AudioBook:
         json_filename = os.path.basename(input_book_path).split(".")[0] + ".json"
         
         if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
+            metadata = {}
             print("Book already exists in library, reading from library")
             json_book = load_json(os.path.join(BOOK_DIR, json_filename))
-            pages = len(json_book)
-            return json_book, pages
+            metadata["pages"] = len(json_book)
+            return json_book, metadata
         
         elif input_book_path.endswith(".pdf"):
-            json_book, pages = pdf_to_json(input_book_path, password)
+            json_book, metadata = pdf_to_json(input_book_path, password)
         elif input_book_path.endswith(".txt"):
-            json_book, pages = txt_to_json(input_book_path)
+            json_book, metadata = txt_to_json(input_book_path)
         elif input_book_path.endswith(".epub"):
-            json_book, pages = epub_to_json(input_book_path)
-        elif input_book_path.endswith(".mobi"):
-            json_book, pages = mobi_to_json(input_book_path)
+            json_book, metadata = epub_to_json(input_book_path)
+        elif metadata.endswith(".mobi"):
+            json_book, metadata = mobi_to_json(input_book_path)
         elif input_book_path.startswith("http"):
-            json_book, pages = html_to_json(input_book_path)
+            json_book, metadata = html_to_json(input_book_path)
         
         write_json_file(json_book, os.path.join(BOOK_DIR, json_filename))
 
-        return json_book, pages
+        return json_book, metadata
 
     def save_audio(self, input_book_path, password=None, save_page_wise=False):
         """ method to save audio files in folder """
@@ -117,7 +121,9 @@ class AudioBook:
         
         input_book_path: filepath, url path or book name
         """
-        json_book, pages = self.create_json_book(input_book_path, password)
+        json_book, metadata = self.create_json_book(input_book_path, password)
+        
+        pages = metadata["pages"]
         
         speak_text(self.engine, f"The book has total {str(pages)} pages!")
         speak_text(self.engine, "Please enter the page number: ", display=False)

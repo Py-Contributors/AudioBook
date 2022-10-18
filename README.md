@@ -17,7 +17,6 @@
 </p>
 <p align="center">
 <a href="https://discord.gg/JfbK3bS"><img src="https://img.shields.io/discord/758030555005714512.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge" alt="discord invite"></a>
-<img src="https://img.shields.io/github/pipenv/locked/dependency-version/py-contributors/audiobook/pyttsx3?style=for-the-badge" alt="pyttsx3">
 <a href="https://api.github.com/repos/py-contributors/audiobook/contributors"><img src="https://img.shields.io/github/contributors/py-contributors/audiobook?style=for-the-badge" alt="total contributors"></a>
 </p>
 
