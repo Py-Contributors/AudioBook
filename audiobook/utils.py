@@ -23,10 +23,10 @@ def write_json_file(json_data, filename):
 
 def text_preprocessing(input_text):
     """ function to preprocess text """
-    preprocessed_text = regex.sub("", input_text) 
+    preprocessed_text = regex.sub("", input_text)
     preprocessed_text = re.sub(' +', ' ', preprocessed_text)
     return preprocessed_text
-          
+
 def response_to_text(chapter):
     """ fuction to convert response to text
 
@@ -37,7 +37,7 @@ def response_to_text(chapter):
     extracted_text = [para.get_text() for para in soup.find_all('p')]
     extracted_text = ' '.join(extracted_text)
     preprocessed_text = text_preprocessing(extracted_text)
-    return preprocessed_text               
+    return preprocessed_text
 
 def speak_text(engine, text, display=True):
     """ function to speak text and display it """
@@ -56,7 +56,7 @@ def mobi_to_json(input_book_path):
         content = fp.read()
     book_data = html2text.html2text(content)
     book_data = text_preprocessing(book_data)
-    
+
     for i in range(0, len(book_data), 2000):
         page_num = i // 2000
         json_book[str(page_num)] = book_data[i:i + 2000]
@@ -74,7 +74,7 @@ def pdf_to_json(input_book_path, password=None):
         pdfReader = PyPDF2.PdfFileReader(fp)
         if pdfReader.isEncrypted:
             pdfReader.decrypt(password)
-            
+
         information = pdfReader.getDocumentInfo()
 
         metadata["author"] = information.author
@@ -84,7 +84,7 @@ def pdf_to_json(input_book_path, password=None):
         metadata["title"] = information.title
         metadata["pages"] = pdfReader.numPages
         metadata["book_name"] = book_name
-        
+
         pages = pdfReader.numPages
         for page_num in range(0, pages):
             pageObj = pdfReader.getPage(page_num)
@@ -101,14 +101,14 @@ def txt_to_json(input_book_path):
     with open(input_book_path, "r") as fp:
         file_txt_data = fp.read()
     file_txt_data = text_preprocessing(file_txt_data)
-    
+
     for i in range(0, len(file_txt_data), 2000):
         page_num = i // 2000
         json_book[str(page_num)] = file_txt_data[i:i + 2000]
-    
+
     metadata["pages"] = len(json_book)
     metadata["book_name"] = book_name
-    return json_book, metadata   
+    return json_book, metadata
 
 
 def docs_to_json(input_book_path):
@@ -124,7 +124,7 @@ def epub_to_json(input_book_path):
     for i in range(1, len(text) + 1, 2000):
         page_num = i // 2000
         json_book[str(page_num)] = text[i:i + 2000]
-    
+
     metadata["pages"] = len(json_book)
     metadata["book_name"] = book_name
     return json_book, metadata
@@ -144,5 +144,5 @@ def html_to_json(url):
     metadata["pages"] = len(json_book)
     metadata["book_name"] = book_name
     return json_book, metadata
-    
+
 
