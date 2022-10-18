@@ -78,7 +78,7 @@ class AudioBook:
             json_book, metadata = txt_to_json(input_book_path)
         elif input_book_path.endswith(".epub"):
             json_book, metadata = epub_to_json(input_book_path)
-        elif metadata.endswith(".mobi"):
+        elif input_book_path.endswith(".mobi"):
             json_book, metadata = mobi_to_json(input_book_path)
         elif input_book_path.startswith("http"):
             json_book, metadata = html_to_json(input_book_path)
