@@ -21,6 +21,8 @@ if ! [ -x "$(command -v python3-dev)" ]; then
   sudo apt-get install python3-dev
 fi
 
+sudo apt update && sudo apt install espeak ffmpeg libespeak1
+
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
