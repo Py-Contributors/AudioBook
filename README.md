@@ -24,7 +24,15 @@
 
 Install using [pypi](https://pypi.org/project/audiobook/)
 
+### Linux(setup script)
+
 ```sh
+sh setup.sh
+```
+
+### windows and linux
+
+```cmd
 pip install audiobook
 ```
 
@@ -34,9 +42,12 @@ from audiobook import AudioBook
 ab = AudioBook(speed="normal", volume=1.0) 
 
 # if file is password protected, pass password as argument
-
 # save_page_wise audio/whole book in one mp3 file
 ab.save_audio(self, input_book_path, password=None, save_page_wise=False): 
+
+- input_book_path: path to pdf file
+- password: password to pdf file
+- save_page_wise: if True, saves each page as a separate mp3 file
 
 ab.read_book(file_path) # listen to the book
 ab.create_json_book(file_path) # create json file of the book
