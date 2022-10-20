@@ -83,7 +83,7 @@ class AudioBook:
             json_book, metadata = mobi_to_json(input_book_path)
         elif input_book_path.startswith("http"):
             json_book, metadata = html_to_json(input_book_path)
-        elif input_book_path.endswith(".docx", ".doc"):
+        elif input_book_path.endswith((".docx", ".doc")):
             json_book, metadata = docs_to_json(input_book_path)
 
         write_json_file(json_book, os.path.join(BOOK_DIR, json_filename))
