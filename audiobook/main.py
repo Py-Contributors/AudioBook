@@ -13,6 +13,7 @@ from audiobook.utils import txt_to_json
 from audiobook.utils import mobi_to_json
 from audiobook.utils import epub_to_json
 from audiobook.utils import html_to_json
+from audiobook.utils import docs_to_json
 
 
 from audiobook.config import speed_dict
@@ -82,6 +83,8 @@ class AudioBook:
             json_book, metadata = mobi_to_json(input_book_path)
         elif input_book_path.startswith("http"):
             json_book, metadata = html_to_json(input_book_path)
+        elif input_book_path.endswith(".docx") or input_book_path.endswith(".doc"):
+            json_book, metadata = docs_to_json(input_book_path)
 
         write_json_file(json_book, os.path.join(BOOK_DIR, json_filename))
 

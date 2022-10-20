@@ -1,5 +1,7 @@
 import re
 import os
+
+import docx2txt
 import mobi
 import json
 import PyPDF2
@@ -110,10 +112,19 @@ def txt_to_json(input_book_path):
     metadata["book_name"] = book_name
     return json_book, metadata
 
-
 def docs_to_json(input_book_path):
     """ sub method to create json book from docs file """
-    pass
+    metadata = {}
+    json_book = {}
+    book_name = os.path.basename(input_book_path).split(".")[0]
+    book_data = docx2txt.process(input_book_path)
+    for i in range(0, len(book_data), 2000):
+        page_num = i // 2000
+        json_book[str(page_num)] = book_data[i:i + 2000]
+
+    metadata["pages"] = len(json_book)
+    metadata["book_name"] = book_name
+    return json_book, metadata
 
 def epub_to_json(input_book_path):
     metadata = {}
