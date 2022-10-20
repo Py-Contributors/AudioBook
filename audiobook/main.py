@@ -1,23 +1,21 @@
-
-import os
-import pyttsx3
 import logging
+import os
+
+import pyttsx3
 from tqdm import tqdm
 
-from audiobook.utils import speak_text
-from audiobook.utils import load_json
-from audiobook.utils import write_json_file
-
-from audiobook.utils import pdf_to_json
-from audiobook.utils import txt_to_json
-from audiobook.utils import mobi_to_json
-from audiobook.utils import epub_to_json
-from audiobook.utils import html_to_json
-from audiobook.utils import docs_to_json
-
-
 from audiobook.config import speed_dict
-from audiobook.config import supported_file_types
+from audiobook.utils import (
+    docs_to_json,
+    epub_to_json,
+    html_to_json,
+    load_json,
+    mobi_to_json,
+    pdf_to_json,
+    speak_text,
+    txt_to_json,
+    write_json_file,
+)
 
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
@@ -29,6 +27,7 @@ os.makedirs(BOOK_DIR, exist_ok=True)
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
 
+
 class AudioBook:
     """
     AudioBook class
@@ -37,7 +36,7 @@ class AudioBook:
         file_check: checks if file exists
         pdf_to_json: converts pdf to json format
         web_page_to_json: converts web article to json
-        create_json_book: Creates json book from input file by calling respective method
+        create_json_book: Creates json book from input file by calling respective method  # noqa: E501
         read_json: reads a json file
         save_json_to_audio: save .mp3 audios from a json file in a folder
         save_book_audio: saves audio files in folder
@@ -54,17 +53,21 @@ class AudioBook:
         self.engine.setProperty("volume", volume)
 
     def get_library(self):
-        """ get all books in library """
+        """get all books in library"""
         total_books = os.listdir(BOOK_DIR)
         if len(total_books) == 0:
             return "You have no books in your library"
-        print("You Have total {} books in your library".format(len(total_books)))
+        print(
+            "You Have total {} books in your library".format(len(total_books))
+        )
         return total_books
 
     def create_json_book(self, input_book_path, password=None):
-        """ method to create json book from input file
-            it calls respective method based on file format """
-        json_filename = os.path.basename(input_book_path).split(".")[0] + ".json"
+        """method to create json book from input file
+        it calls respective method based on file format"""
+        json_filename = (
+            os.path.basename(input_book_path).split(".")[0] + ".json"
+        )
 
         if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
             metadata = {}
@@ -91,30 +94,34 @@ class AudioBook:
         return json_book, metadata
 
     def save_audio(self, input_book_path, password=None, save_page_wise=False):
-        """ method to save audio files in folder """
+        """method to save audio files in folder"""
         json_book, metadata = self.create_json_book(input_book_path, password)
 
-        book_name = metadata['book_name']
+        book_name = metadata["book_name"]
         os.makedirs(book_name, exist_ok=True)
 
-        print('Saving audio files in folder: {}'.format(book_name))
+        print("Saving audio files in folder: {}".format(book_name))
 
         if save_page_wise:
             for page_num, text in tqdm(json_book.items()):
-                self.engine.save_to_file(text, os.path.join(book_name,
-                                                            book_name +
-                                                            "_page_" +
-                                                            (str(page_num)) +
-                                                            ".mp3"))
+                self.engine.save_to_file(
+                    text,
+                    os.path.join(
+                        book_name,
+                        book_name + "_page_" + (str(page_num)) + ".mp3",
+                    ),
+                )
                 self.engine.runAndWait()
 
         elif not save_page_wise:
             all_text = " ".join([text for text in json_book.values()])
-            self.engine.save_to_file(all_text, os.path.join(book_name, book_name + ".mp3"))
+            self.engine.save_to_file(
+                all_text, os.path.join(book_name, book_name + ".mp3")
+            )
             self.engine.runAndWait()
 
     def read_book(self, input_book_path, password=None):
-        """ method to read the book
+        """method to read the book
 
         input_book_path: filepath, url path or book name
         """
@@ -123,21 +130,31 @@ class AudioBook:
         pages = metadata["pages"]
 
         speak_text(self.engine, f"The book has total {str(pages)} pages!")
-        speak_text(self.engine, "Please enter the page number: ", display=False)
+        speak_text(
+            self.engine, "Please enter the page number: ", display=False
+        )
         start_page = int(input("Please enter the page number: ")) - 1
 
         reading = True
         while reading:
             if start_page > pages or start_page < 0:
                 speak_text(self.engine, "Invalid page number!")
-                speak_text(self.engine, f"The book has total {str(pages)} pages!")
+                speak_text(
+                    self.engine, f"The book has total {str(pages)} pages!"
+                )
                 start_page = int(input("Please enter the page number: "))
 
             speak_text(self.engine, f"Reading page {str(start_page+1)}")
             pageText = json_book[str(start_page)]
             speak_text(self.engine, pageText, display=False)
 
-            user_input = input("Please Select an option: \n 1. Type 'r' to read again: \n 2. Type 'p' to read previous page\n 3. Type 'n' to read next page\n 4. Type 'q' to quit:\n 5. Type page number to read that page:\n")
+            input_message = "Please Select an option: \n "
+            "1. Type 'r' to read again: \n "
+            "2. Type 'p' to read previous page\n "
+            "3. Type 'n' to read next page\n "
+            "4. Type 'q' to quit:\n "
+            "5. Type page number to read that page:\n"
+            user_input = input(input_message)
             if user_input == "r":
                 speak_text(self.engine, f"Reading page {str(start_page+1)}")
                 continue
@@ -155,5 +172,5 @@ class AudioBook:
             elif user_input.isnumeric():
                 start_page = int(user_input) - 1
             else:
-                user_input = input("Please Select an option: \n 1. Type 'r' to read again: \n 2. Type 'p' to read previous page\n 3. Type 'n' to read next page\n 4. Type 'q' to quit:\n 5. Type page number to read that page:\n")
+                user_input = input(input_message)
                 continue
