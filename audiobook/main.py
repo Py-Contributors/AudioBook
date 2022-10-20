@@ -62,7 +62,7 @@ class AudioBook:
         )
         return total_books
 
-    def create_json_book(self, input_book_path, password=None):
+    def create_json_book(self, input_book_path, password=None, extraction_engine=None):
         """method to create json book from input file
         it calls respective method based on file format"""
         json_filename = (
@@ -77,7 +77,7 @@ class AudioBook:
             return json_book, metadata
 
         elif input_book_path.endswith(".pdf"):
-            json_book, metadata = pdf_to_json(input_book_path, password)
+            json_book, metadata = pdf_to_json(input_book_path, password, extraction_engine=extraction_engine)
         elif input_book_path.endswith(".txt"):
             json_book, metadata = txt_to_json(input_book_path)
         elif input_book_path.endswith(".epub"):
@@ -93,9 +93,10 @@ class AudioBook:
 
         return json_book, metadata
 
-    def save_audio(self, input_book_path, password=None, save_page_wise=False):
+    def save_audio(self, input_book_path, password=None, save_page_wise=False, extraction_engine=None):
         """method to save audio files in folder"""
-        json_book, metadata = self.create_json_book(input_book_path, password)
+
+        json_book, metadata = self.create_json_book(input_book_path, password, extraction_engine)
 
         book_name = metadata["book_name"]
         os.makedirs(book_name, exist_ok=True)
@@ -120,12 +121,12 @@ class AudioBook:
             )
             self.engine.runAndWait()
 
-    def read_book(self, input_book_path, password=None):
+    def read_book(self, input_book_path, password=None, extraction_engine=None):
         """method to read the book
 
         input_book_path: filepath, url path or book name
         """
-        json_book, metadata = self.create_json_book(input_book_path, password)
+        json_book, metadata = self.create_json_book(input_book_path, password, extraction_engine)
 
         pages = metadata["pages"]
 

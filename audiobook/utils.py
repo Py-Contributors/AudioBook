@@ -6,11 +6,12 @@ import docx2txt
 import ebooklib
 import html2text
 import mobi
-import PyPDF2
 from bs4 import BeautifulSoup
 from ebooklib import epub
 
 from audiobook.doc_parser.web_parser import ArticleWebScraper
+from audiobook.doc_parser.pdf_parser import PyPDF2DocParser
+from audiobook.doc_parser.pdf_parser import PdfMinerDocParser
 
 
 def load_json(filename):
@@ -72,32 +73,28 @@ def mobi_to_json(input_book_path):
     return json_book, metadata
 
 
-def pdf_to_json(input_book_path, password=None):
+def pdf_to_json(input_book_path, password=None, extraction_engine="pypdf2"):
     """sub method to create json book from pdf file"""
     metadata = {}
     json_book = {}
-    book_name = os.path.basename(input_book_path).split(".")[0]
-    with open(input_book_path, "rb") as fp:
-        pdfReader = PyPDF2.PdfFileReader(fp)
-        if pdfReader.isEncrypted:
-            pdfReader.decrypt(password)
 
-        information = pdfReader.getDocumentInfo()
+    if extraction_engine == "pdfminer":
+        print("Using pdfminer")
+        pdf_parser = PdfMinerDocParser()
+    elif extraction_engine == "pypdf2":
+        print("Using pypdf2")
+        pdf_parser = PyPDF2DocParser()
+    else:
+        raise NotImplementedError("Only pdfminer and pypdf2 are supported")
 
-        metadata["author"] = information.author
-        metadata["creator"] = information.creator
-        metadata["producer"] = information.producer
-        metadata["subject"] = information.subject
-        metadata["title"] = information.title
-        metadata["pages"] = pdfReader.numPages
-        metadata["book_name"] = book_name
+    text = pdf_parser.get_text(input_book_path, password=password)
+    text = text_preprocessing(text)
 
-        pages = pdfReader.numPages
-        for page_num in range(0, pages):
-            pageObj = pdfReader.getPage(page_num)
-            extracted_text = pageObj.extractText()
-            json_book[str(page_num)] = extracted_text
+    for i in range(0, len(text), 2000):
+        page_num = i // 2000
+        json_book[str(page_num)] = text[i: i + 2000]
 
+    metadata = len(json_book)
     return json_book, metadata
 
 
