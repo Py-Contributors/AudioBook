@@ -10,9 +10,7 @@ import PyPDF2
 from bs4 import BeautifulSoup
 from ebooklib import epub
 
-from audiobook.article_web_scraper import ArticleWebScraper
-
-regex = re.compile(r"[\n\r\t]")
+from audiobook.doc_parser.web_parser import ArticleWebScraper
 
 
 def load_json(filename):
@@ -27,6 +25,7 @@ def write_json_file(json_data, filename):
 
 def text_preprocessing(input_text):
     """function to preprocess text"""
+    regex = re.compile(r"[\n\r\t]")
     preprocessed_text = regex.sub("", input_text)
     preprocessed_text = re.sub(" +", " ", preprocessed_text)
     return preprocessed_text

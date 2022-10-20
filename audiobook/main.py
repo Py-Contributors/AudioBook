@@ -154,6 +154,7 @@ class AudioBook:
             "3. Type 'n' to read next page\n "
             "4. Type 'q' to quit:\n "
             "5. Type page number to read that page:\n"
+
             user_input = input(input_message)
             if user_input == "r":
                 speak_text(self.engine, f"Reading page {str(start_page+1)}")
