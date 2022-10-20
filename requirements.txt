@@ -4,3 +4,6 @@ ebooklib==0.17.1
 beautifulsoup4==4.11.1
 html2text==2020.1.16
 mobi==0.3.3
+docx2txt>=0.8
+requests>=2.28.1
+tqdm>=4.64.1
