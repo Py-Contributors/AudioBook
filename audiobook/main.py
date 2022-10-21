@@ -33,13 +33,9 @@ class AudioBook:
     AudioBook class
 
     methods:
-        file_check: checks if file exists
-        pdf_to_json: converts pdf to json format
-        web_page_to_json: converts web article to json
+        get_library: get all books in library
         create_json_book: Creates json book from input file by calling respective method  # noqa: E501
-        read_json: reads a json file
-        save_json_to_audio: save .mp3 audios from a json file in a folder
-        save_book_audio: saves audio files in folder
+        save_audio: method to save audio files in folder
         read_book: reads the book
 
     sample usage:
@@ -70,7 +66,7 @@ class AudioBook:
         )
 
         if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
-            metadata = {}
+            metadata = {"book_name": json_filename.split(".")[0]}
             print("Book already exists in library, reading from library")
             json_book = load_json(os.path.join(BOOK_DIR, json_filename))
             metadata["pages"] = len(json_book)
@@ -88,6 +84,8 @@ class AudioBook:
             json_book, metadata = html_to_json(input_book_path)
         elif input_book_path.endswith((".docx", ".doc")):
             json_book, metadata = docs_to_json(input_book_path)
+        else:
+            raise NotImplementedError("Only PDF, TXT, EPUB, MOBI, HTTP, DOCX and DOC files are supported")
 
         write_json_file(json_book, os.path.join(BOOK_DIR, json_filename))
 
@@ -99,9 +97,10 @@ class AudioBook:
         json_book, metadata = self.create_json_book(input_book_path, password, extraction_engine)
 
         book_name = metadata["book_name"]
-        os.makedirs(book_name, exist_ok=True)
+        book_dir = os.path.join(BOOK_DIR, book_name)
+        os.makedirs(book_dir, exist_ok=True)
 
-        print("Saving audio files in folder: {}".format(book_name))
+        print("Saving audio files in folder: {}".format(book_dir))
 
         if save_page_wise:
             for page_num, text in tqdm(json_book.items()):
