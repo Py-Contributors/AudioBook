@@ -36,6 +36,11 @@ sh setup.sh
 pip install audiobook
 ```
 
+## Usages
+
+The audiobook is a python module for listening to your favourite PDF book.
+
+
 ```python
 from audiobook import AudioBook
 # argument: Speech-Speed="slow/normal/fast", volume = 0.0 to 1.0
@@ -48,6 +53,7 @@ ab.save_audio(self, input_book_path, password=None, save_page_wise=False):
 - input_book_path: path to pdf file
 - password: password to pdf file
 - save_page_wise: if True, saves each page as a separate mp3 file
+- extraction_engine: "pypdf2/pdfminor" for extracting text from pdf file
 
 ab.read_book(file_path) # listen to the book
 ab.create_json_book(file_path) # create json file of the book
@@ -55,9 +61,17 @@ ab.create_json_book(file_path) # create json file of the book
 ab.get_library() # get all the books in your library
 ```
 
-## Usages
+## Supported File Formats
 
-The audiobook is a python module for listening to your favourite PDF book.
+| File Format | Supported | Engine |
+| :--- | :---: | :---: |
+| PDF | :white_check_mark: | pypdf2/pdfminor |
+| TXT | :white_check_mark: |  not required  |
+| EPUB | :white_check_mark: | not required  |
+| MOBI | :white_check_mark: | not required  |
+| HTML | :white_check_mark: | not required  |
+| DOCX | :white_check_mark: | not required  |
+| ODT | :x: | not required  |
 
 ## Test
 
@@ -93,12 +107,17 @@ This project is currently in development. Any contributions are welcome.
 
 ## Changelog
 
+**V2.0.2**
+- [x] Docs files support added
+- [x] Pdfminor as engine added 
+
 **V2.0.1**
 
 - [x] Mobi file support
 - [x] Epub file support
 - [x] User can now save the audiobook for future
 - [x] User library added    
+- [
 
 **V2.0.0**
 
