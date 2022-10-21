@@ -1,7 +1,8 @@
 import logging
 import os
-
+import re
 import pyttsx3
+import PyPDF2
 from tqdm import tqdm
 
 from audiobook.config import speed_dict
@@ -176,3 +177,20 @@ class AudioBook:
             else:
                 user_input = input(input_message)
                 continue
+class text_search:
+    
+    def read_pdf(self, file_path, password=None):
+        with open(file_path, 'rb') as f:
+             read_pdf_file = PyPDF2.PdfFileReader(f)
+             if read_pdf_file.isEncrypted:
+                 read_pdf_file.decrypt(password)
+             number_of_pages = read_pdf_file.getNumPages()
+             match_text = input('Enter text to be searched:  ')
+
+             for i in range(0, number_of_pages):
+                 page_obj = object.getPage(i)
+                 print('This is page' +str(i))
+                 text = page_obj.extractText()
+             if __name__ == '__main__':
+                 search = re.search(match_text, text)
+                 return search
