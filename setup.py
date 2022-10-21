@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="audiobook",
-    version="2.0.1",
+    version="2.0.2",
     author="CodePerfectPlus",
     author_email="deepak008@live.com",
     description="Listen to your favourite audiobook",
