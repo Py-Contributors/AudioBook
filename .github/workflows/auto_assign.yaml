@@ -1,17 +1,16 @@
-# A list of reviewers to be added to PRs (GitHub user  name)
-reviewers:
-  - codePerfectPlus
-  - drakeEntity
-  - aayushi-droid
+name: PR assignment
 
-# A number of reviewers added to the PR
-# Set 0 to add all the reviewers (default: 0)
-numberOfReviewers: 2
+on:
+    pull_request:
+        types: [opened, edited, synchronize, reopened]
 
-# A list of assignees, overrides reviewers if set
-assignees:
-  - codePerfectPlus
-
-# A number of assignees to add to the PRs
-# Set to 0 to add all of the assignees.
-# Uses numberOfReviewers if unset.
+jobs:
+    auto-assign:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 'Auto-assign PR'
+              uses: pozil/auto-assign-issue@v1
+              with:
+                  repo-token: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
+                  teams: support
+                  numOfAssignee: 1
