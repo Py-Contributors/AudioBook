@@ -191,6 +191,5 @@ class text_search:
                  page_obj = object.getPage(i)
                  print('This is page' +str(i))
                  text = page_obj.extractText()
-             if __name__ == '__main__':
                  search = re.search(match_text, text)
                  return search
