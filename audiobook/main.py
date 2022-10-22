@@ -11,6 +11,7 @@ from audiobook.utils import (
     html_to_json,
     load_json,
     mobi_to_json,
+    odt_to_json,
     pdf_to_json,
     speak_text,
     txt_to_json,
@@ -72,6 +73,8 @@ class AudioBook:
             metadata["pages"] = len(json_book)
             return json_book, metadata
 
+        elif input_book_path.endswith(".odt"):
+            json_book, metadata = odt_to_json(input_book_path)
         elif input_book_path.endswith(".pdf"):
             json_book, metadata = pdf_to_json(input_book_path, password, extraction_engine=extraction_engine)
         elif input_book_path.endswith(".txt"):
