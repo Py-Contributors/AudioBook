@@ -38,8 +38,11 @@ pip install audiobook
 
 ## Usages
 
-The audiobook is a python module for listening to your favourite PDF book.
+The audiobook is a python module for listening to your favourite PDF (and not only) book.
 
+Basic usage is exposed via CLI, type `python audiobook -h` for help.
+
+More advanced features are exposed via the API:
 
 ```python
 from audiobook import AudioBook
