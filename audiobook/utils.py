@@ -8,6 +8,8 @@ import html2text
 import mobi
 from bs4 import BeautifulSoup
 from ebooklib import epub
+from odf import text, teletype
+from odf.opendocument import load
 
 from audiobook.doc_parser.web_parser import ArticleWebScraper
 from audiobook.doc_parser.pdf_parser import PyPDF2DocParser
@@ -93,6 +95,25 @@ def pdf_to_json(input_book_path, password=None, extraction_engine="pypdf2"):
     for i in range(0, len(text), 2000):
         page_num = i // 2000
         json_book[str(page_num)] = text[i: i + 2000]
+
+    metadata = len(json_book)
+    return json_book, metadata
+
+
+def odt_to_json(input_book_path):
+    """sub method to create json book from odt file"""
+    metadata = {}
+    json_book = {}
+    textdoc = load(input_book_path)
+    allparas = textdoc.getElementsByType(text.P)
+    output_text = ""
+    for i in range(len(allparas)):
+        output_text += " " + teletype.extractText(allparas[i])
+    output_text = text_preprocessing(output_text)
+
+    for i in range(0, len(output_text), 2000):
+        page_num = i // 2000
+        json_book[str(page_num)] = output_text[i: i + 2000]
 
     metadata = len(json_book)
     return json_book, metadata

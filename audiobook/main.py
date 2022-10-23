@@ -11,6 +11,7 @@ from audiobook.utils import (
     html_to_json,
     load_json,
     mobi_to_json,
+    odt_to_json,
     pdf_to_json,
     speak_text,
     txt_to_json,
@@ -72,6 +73,8 @@ class AudioBook:
             metadata["pages"] = len(json_book)
             return json_book, metadata
 
+        elif input_book_path.endswith(".odt"):
+            json_book, metadata = odt_to_json(input_book_path)
         elif input_book_path.endswith(".pdf"):
             json_book, metadata = pdf_to_json(input_book_path, password, extraction_engine=extraction_engine)
         elif input_book_path.endswith(".txt"):
@@ -85,7 +88,7 @@ class AudioBook:
         elif input_book_path.endswith((".docx", ".doc")):
             json_book, metadata = docs_to_json(input_book_path)
         else:
-            raise NotImplementedError("Only PDF, TXT, EPUB, MOBI, HTTP, DOCX and DOC files are supported")
+            raise NotImplementedError("Only PDF, TXT, EPUB, MOBI, ODT, HTTP, DOCX and DOC files are supported")
 
         write_json_file(json_book, os.path.join(BOOK_DIR, json_filename))
 
