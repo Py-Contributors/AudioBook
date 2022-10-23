@@ -99,16 +99,16 @@ def pdf_to_json(input_book_path, password=None, extraction_engine="pypdf2"):
     metadata = len(json_book)
     return json_book, metadata
 
+
 def odt_to_json(input_book_path):
     """sub method to create json book from odt file"""
     metadata = {}
     json_book = {}
-    
     textdoc = load(input_book_path)
     allparas = textdoc.getElementsByType(text.P)
     output_text = ""
     for i in range(len(allparas)):
-      output_text += " " + teletype.extractText(allparas[i])
+        output_text += " " + teletype.extractText(allparas[i])
     output_text = text_preprocessing(output_text)
 
     for i in range(0, len(output_text), 2000):
