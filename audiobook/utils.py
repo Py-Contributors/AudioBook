@@ -106,14 +106,14 @@ def odt_to_json(input_book_path):
     
     textdoc = load(input_book_path)
     allparas = textdoc.getElementsByType(text.P)
-    text = ""
+    output_text = ""
     for i in range(len(allparas)):
-      text += " " + teletype.extractText(allparas[i])
-    text = text_preprocessing(text)
+      output_text += " " + teletype.extractText(allparas[i])
+    output_text = text_preprocessing(output_text)
 
-    for i in range(0, len(text), 2000):
+    for i in range(0, len(output_text), 2000):
         page_num = i // 2000
-        json_book[str(page_num)] = text[i: i + 2000]
+        json_book[str(page_num)] = output_text[i: i + 2000]
 
     metadata = len(json_book)
     return json_book, metadata
