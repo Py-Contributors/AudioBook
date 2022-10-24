@@ -3,27 +3,29 @@ import os.path
 
 from main import BOOK_DIR, AudioBook
 
-if __name__ == "__main__":
+
+def main():
     parser = argparse.ArgumentParser(description="AudioBook - listen to any PDF book")
-    parser.add_argument(
+    parser.add_argument("-p", "--path", nargs="?", default=None, help="book file path")
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
         "-l", "--library", action="store_true", help="get all books in library"
     )
-    parser.add_argument(
+    group.add_argument(
         "-c",
         "--create-json",
         action="store_true",
         help="create json file from input file",
     )
-    parser.add_argument(
+    group.add_argument(
         "-s",
         "--save-audio",
         action="store_true",
         help="save audio files from input file",
     )
-    parser.add_argument(
-        "-r", "--read-book", action="store_true", help="read the book from input file"
-    )
-    parser.add_argument("path", nargs="?", default=None, help="book file path")
+    group.add_argument(
+        "-r", "--read-book", action="store_true", help="read the book from input file")
 
     args = parser.parse_args()
 
@@ -45,3 +47,7 @@ if __name__ == "__main__":
     else:
         ab.get_library()
         print("Use `python audiobook -h` to see all valid options")
+
+
+if __name__ == "__main__":
+    main()
