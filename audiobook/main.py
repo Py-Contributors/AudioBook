@@ -25,11 +25,8 @@ expand_usr = os.path.expanduser("~")
 BOOK_DIR = os.path.join(expand_usr, "audiobook/library")
 os.makedirs(BOOK_DIR, exist_ok=True)
 
-logger = logging.getLogger("PyPDF2")
-logger.setLevel(logging.INFO)
 
-
-class AudioBook:
+class AudioBook(object):
     """
     AudioBook class
 
