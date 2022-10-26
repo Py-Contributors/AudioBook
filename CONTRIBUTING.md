@@ -15,13 +15,13 @@ We love your input! We want to make contributing to this project as easy and tra
 ### Making a PR
 
 > - Make sure you have been assigned the issue to which you are making a PR.
-> - If you make PR before being assigned, It will be labeled `invalid` and closed without merging.
+> - If you make PR before being assigned, It may be labeled `invalid` and closed without merging.
 
 - Fork the repo and clone it on your machine.
 - Add a upstream link to main branch in your cloned repo
 
     ```sh
-    git remote add upstream https://github.com/codeperfectplus/audiobook.git
+    git remote add upstream https://github.com/py-contributors/audiobook.git
     ```
 
 - Keep your cloned repo upto date by pulling from upstream (this will also avoid any merge conflicts while committing new changes)
@@ -52,11 +52,12 @@ We love your input! We want to make contributing to this project as easy and tra
 
 ### Additional Notes
 
+- Any changes should be made in the `dev` branch.
+- Changes should be logged in the `CHANGELOG.md` file.
 - Code should be properly commented to ensure it's readability.
 - If you've added code that should be tested, add tests as comments.
 - Make sure your code properly formatted.
 - Issue that pull request!
-- use Flake8 for python code
 
 ## Issue suggestions/Bug reporting
 
@@ -76,8 +77,3 @@ When you are creating an issue, make sure it's not already present. Furthermore,
 ## License
 
 By contributing, you agree that your contributions will be licensed under its  [MIT License](http://choosealicense.com/licenses/mit/).
-
-
-## References
-
-This document was adapted from the open-source contribution guidelines for [Facebook's Draft](https://github.com/facebook/draft-js/blob/a9316a723f9e918afde44dea68b5f9f39b7d9b00/CONTRIBUTING.md)
