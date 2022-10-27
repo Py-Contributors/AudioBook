@@ -1,4 +1,5 @@
 import io
+import ast
 
 import PyPDF2
 
@@ -7,6 +8,9 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
+
+from pdfminer.pdfparser import PDFParser
+from pdfminer.pdfdocument import PDFDocument
 
 
 class PdfMinerDocParser(object):
@@ -19,7 +23,9 @@ class PdfMinerDocParser(object):
 
     """
     def __init__(self):
-        self.laparams = LAParams(char_margin=1, line_margin=0.5, all_texts=True)
+        self.laparams = LAParams(char_margin=1,
+                                 line_margin=0.5,
+                                 all_texts=True)
 
     def get_metadata(self):
         pass
@@ -35,11 +41,32 @@ class PdfMinerDocParser(object):
         with open(filepath, 'rb') as fp:
             interpreter = PDFPageInterpreter(rsrcmgr, device)
 
-            for page in PDFPage.get_pages(fp=fp, pagenos=pagenos, maxpages=maxpages, password=password, caching=caching):
+            for page in PDFPage.get_pages(fp=fp,
+                                          pagenos=pagenos,
+                                          maxpages=maxpages,
+                                          password=password,
+                                          caching=caching):
                 interpreter.process_page(page)
 
             pdf_data = retstr.getvalue()
             return pdf_data
+
+    def get_toc(self, filepath, password=None):
+        """ function to get table of contents if available """
+        output_toc = []
+        # if not os.path.isfile(output_toc_path):
+        with open(filepath, 'rb') as fp:
+            parser = PDFParser(fp)
+
+            document = PDFDocument(parser, password=password)
+            try:
+                outlines = document.get_outlines()
+                for (level, title, _, _, _) in outlines:
+                    output_toc.append((level, title))
+                return output_toc
+            except Exception as e:
+                print(e)
+                return output_toc
 
 
 class PyPDF2DocParser(object):
@@ -70,5 +97,20 @@ class PyPDF2DocParser(object):
                 num_pages = min(num_pages, maxpages)
             for i in range(num_pages):
                 pageObj = pdfReader.getPage(i)
-                pdf_data += pageObj.extractText()  # BUG: Page 1Page 2Page 3Page 4Page 5
+                pdf_data += pageObj.extractText()
         return pdf_data
+
+    def get_toc(self, filepath, password=None):
+        outlines = []
+
+        with open(filepath, "rb") as fp:
+            pdfReader = PyPDF2.PdfFileReader(fp, strict=False)
+            if password:
+                pdfReader.decrypt(password)
+            outlines = pdfReader.getOutlines()
+            if outlines:
+                outlines = str(outlines).replace("IndirectObject(", "[")
+                outlines = outlines.replace(")", "]").replace("/", "")
+                outlines = ast.literal_eval(outlines)
+
+        return outlines
