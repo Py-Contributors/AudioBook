@@ -74,7 +74,7 @@ ab.get_library() # get all the books in your library
 | MOBI | :white_check_mark: | not required  |
 | HTML | :white_check_mark: | not required  |
 | DOCX | :white_check_mark: | not required  |
-| ODT | :x: | not required  |
+| ODT | :white_check_mark: | not required  |
 
 ## Test
 
@@ -111,16 +111,17 @@ This project is currently in development. Any contributions are welcome.
 ## Changelog
 
 **V2.0.2**
+
 - [x] Docs files support added
 - [x] Pdfminor as engine added 
+- [x] ODT file support added
 
 **V2.0.1**
 
 - [x] Mobi file support
 - [x] Epub file support
 - [x] User can now save the audiobook for future
-- [x] User library added    
-- [
+- [x] User can now listen to the book from the library
 
 **V2.0.0**
 

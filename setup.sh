@@ -15,6 +15,7 @@ if ! [ -x "$(command -v pip3)" ]; then
   exit 1
 fi
 
+
 # check if python3-dev is installed
 if ! [ -x "$(command -v python3-dev)" ]; then
   echo 'Error: python3-dev is not installed.' >&2
