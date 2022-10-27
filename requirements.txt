@@ -13,3 +13,4 @@ defusedxml==0.7.1
 odfpy==1.4.1
 # for readthedocs
 jinja2<3.1.0
+Markdown<3.2
