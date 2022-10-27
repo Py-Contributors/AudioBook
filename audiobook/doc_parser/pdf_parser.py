@@ -61,7 +61,7 @@ class PdfMinerDocParser(object):
             document = PDFDocument(parser, password=password)
             try:
                 outlines = document.get_outlines()
-                for (level, title, dest, a, se) in outlines:
+                for (level, title, _, _, _) in outlines:
                     output_toc.append((level, title))
                 return output_toc
             except Exception as e:
