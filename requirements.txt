@@ -11,3 +11,5 @@ pdfminer>=20191125
 # for odt module
 defusedxml==0.7.1
 odfpy==1.4.1
+# for readthedocs
+jinja2<3.1.0
