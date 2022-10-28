@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ## added
 
-- [x]
+- [x] Extended pdf_parser to extract table of contents
+- [x]  
 
 ## [V2.0.2] - 22-10-2022    
 

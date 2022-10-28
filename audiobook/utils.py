@@ -31,6 +31,7 @@ def text_preprocessing(input_text):
     regex = re.compile(r"[\n\r\t]")
     preprocessed_text = regex.sub("", input_text)
     preprocessed_text = re.sub(" +", " ", preprocessed_text)
+    preprocessed_text = preprocessed_text.strip()
     return preprocessed_text
 
 
@@ -79,8 +80,8 @@ def pdf_to_json(input_book_path, password=None, extraction_engine="pypdf2"):
     """sub method to create json book from pdf file"""
     metadata = {}
     json_book = {}
-
-    if extraction_engine == "pdfminer":
+    basename = os.path.basename(input_book_path).split(".")[0]
+    if extraction_engine is None or extraction_engine == "pdfminer":
         print("Using pdfminer")
         pdf_parser = PdfMinerDocParser()
     elif extraction_engine == "pypdf2":
@@ -96,7 +97,8 @@ def pdf_to_json(input_book_path, password=None, extraction_engine="pypdf2"):
         page_num = i // 2000
         json_book[str(page_num)] = text[i: i + 2000]
 
-    metadata = len(json_book)
+    metadata['book_name'] = basename
+    metadata['pages'] = len(json_book)
     return json_book, metadata
 
 
@@ -104,6 +106,8 @@ def odt_to_json(input_book_path):
     """sub method to create json book from odt file"""
     metadata = {}
     json_book = {}
+    basename = os.path.basename(input_book_path).split(".")[0]
+    
     textdoc = load(input_book_path)
     allparas = textdoc.getElementsByType(text.P)
     output_text = ""
@@ -115,7 +119,9 @@ def odt_to_json(input_book_path):
         page_num = i // 2000
         json_book[str(page_num)] = output_text[i: i + 2000]
 
-    metadata = len(json_book)
+    metadata['book_name'] = basename
+    metadata['pages'] = len(json_book)
+    
     return json_book, metadata
 
 
