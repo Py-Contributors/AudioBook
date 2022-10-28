@@ -2,29 +2,38 @@ import unittest
 
 from audiobook import AudioBook
 
+import json
+
+
+def load_json(filename):
+    with open(filename, "r") as fp:
+        return json.load(fp)
+
+
+output = load_json("assets/output.json")
+
+ab = AudioBook(speed="normal")
+
 
 class TestAudioBook(unittest.TestCase):
-    def test_invalidPathNumeric(self):  # TODO #41: Update tests
-        with self.assertRaises(IOError):
-            ab = AudioBook("normal")
-            ab.txt_to_json(123)
 
-    def test_openDirectory(self):  # TODO #41: Update tests
-        with self.assertRaises(IsADirectoryError):
-            ab = AudioBook("normal")
-            ab.txt_to_json("/")
+    def test_txt_to_json_pdf_miner(self):
+        self.assertEqual(ab.create_json_book("assets/sample.txt"), (output['txt'], {'book_name': 'sample', 'pages': 1}))
 
-    def test_fileDoesNotExist(self):  # TODO #41: Update tests
-        with self.assertRaises(FileNotFoundError):
-            ab = AudioBook("normal")
-            ab.txt_to_json("oiawhgaiurgieurghergerg")
+    def test_pdf_to_json_pdf_miner(self):
+        self.assertEqual(ab.create_json_book("assets/sample.pdf", extraction_engine="pdfminer"), (output['pdf'], {'book_name': 'sample', 'pages': 1}))
 
-    def test_openDirectory(self):  # noqa: F811  # TODO #41: Update tests
-        with self.assertRaises(IsADirectoryError):
-            ab = AudioBook()
-            ab.read_book("/")
+    def test_pdf_to_json_pypdf2(self):
+        self.assertEqual(ab.create_json_book("assets/sample.pdf", extraction_engine="pypdf2"), (output['pdf'], {'book_name': 'sample', 'pages': 1}))
 
-    def test_fileDoesNotExist(self):  # noqa: F811  # TODO #41: Update tests
-        with self.assertRaises(FileNotFoundError):
-            ab = AudioBook()
-            ab.read_book("oiawhgaiurgieurghergerg")
+    def test_odt_to_json(self):
+        self.assertEqual(ab.create_json_book("assets/sample.odt"), (output['odt'], {'book_name': 'sample', 'pages': 1}))
+
+    def test_mobi_to_json(self):
+        self.assertEqual(ab.create_json_book("assets/sample.mobi"), (output['mobi'], {'book_name': 'sample', 'pages': 1}))
+
+    # def test_docs_to_json(self):
+    #     self.assertEqual(ab.create_json_book("assets/sample.doc"), (output['docs'], {'book_name': 'sample', 'pages': 1}))
+
+    # def test_epub_to_json(self): # epub test failing
+    #     self.assertEqual(ab.create_json_book("assets/sample.epub"), (output['epub'], {'book_name': 'sample', 'pages': 1}))

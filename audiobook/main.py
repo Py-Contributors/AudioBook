@@ -56,19 +56,21 @@ class AudioBook(object):
         )
         return total_books
 
-    def create_json_book(self, input_book_path, password=None, extraction_engine=None):
+    def create_json_book(self, input_book_path, password=None, extraction_engine=None, load_from_library=False):
         """method to create json book from input file
         it calls respective method based on file format"""
         json_filename = (
             os.path.basename(input_book_path).split(".")[0] + ".json"
         )
 
-        if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
-            metadata = {"book_name": json_filename.split(".")[0]}
-            print("Book already exists in library, reading from library")
-            json_book = load_json(os.path.join(BOOK_DIR, json_filename))
-            metadata["pages"] = len(json_book)
-            return json_book, metadata
+        if load_from_library:
+            print("Loading book from library")
+            if os.path.exists(os.path.join(BOOK_DIR, json_filename)):
+                metadata = {"book_name": json_filename.split(".")[0]}
+                print("Book already exists in library, reading from library")
+                json_book = load_json(os.path.join(BOOK_DIR, json_filename))
+                metadata["pages"] = len(json_book)
+                return json_book, metadata
 
         elif input_book_path.endswith(".odt"):
             json_book, metadata = odt_to_json(input_book_path)
