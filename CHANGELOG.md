@@ -7,7 +7,8 @@ All notable changes to this project will be documented in this file. The format 
 ## added
 
 - [x] Extended pdf_parser to extract table of contents
-- [x]  
+- [x] Updated test cases 
+- [x] Added support for CI/CD 
 
 ## [V2.0.2] - 22-10-2022    
 
