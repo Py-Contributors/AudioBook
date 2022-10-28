@@ -107,7 +107,7 @@ def odt_to_json(input_book_path):
     metadata = {}
     json_book = {}
     basename = os.path.basename(input_book_path).split(".")[0]
-    
+
     textdoc = load(input_book_path)
     allparas = textdoc.getElementsByType(text.P)
     output_text = ""
@@ -121,7 +121,7 @@ def odt_to_json(input_book_path):
 
     metadata['book_name'] = basename
     metadata['pages'] = len(json_book)
-    
+
     return json_book, metadata
 
 
