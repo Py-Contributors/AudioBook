@@ -57,12 +57,12 @@ Other Projects by Py-Contributors:
 .. toctree::
    :hidden:
 
-   introduction.rst
-   installation.rst
-   command_line_usage.rst
-   import_as_module.rst
-   changelog.rst
-   roadmap.rst
-   run_test_cases.rst
+   source/introduction.rst
+   sourceinstallation.rst
+   source/command_line_usage.rst
+   source/import_as_module.rst
+   source/changelog.rst
+   source/roadmap.rst
+   source/run_test_cases.rst
 
 
