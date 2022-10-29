@@ -1,3 +1,4 @@
-# for readthedocs
-jinja2<3.1.0
-Markdown<3.2
+sphinx
+livereload
+sphinx-rtd-theme
+pydata_sphinx_theme

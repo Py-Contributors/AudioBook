@@ -4,7 +4,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
-## [V2.0.4] 
+## Proposed Changes/features
+
+- [x] Search book in the library
+- [x] Delete book from the library  
+
+## [V2.0.4]
 
 - [x] Extended pdf_parser to extract table of contents
 - [x] Command line Support added 
