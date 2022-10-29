@@ -30,6 +30,7 @@ jobs:
     steps:
       - checkout
       - run: python --version
+      - run: sudo apt-get update
       - run: sudo apt install libespeak-dev
       - python/install-packages:
           pkg-manager: pip
