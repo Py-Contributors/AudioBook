@@ -1,7 +1,7 @@
 import argparse
 import os.path
 
-from main import BOOK_DIR, AudioBook
+from audiobook.main import AudioBook, BOOK_DIR
 
 
 def main():

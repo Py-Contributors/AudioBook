@@ -23,4 +23,7 @@ setuptools.setup(
         "Intended Audience :: Developers",
     ],
     python_requires=">=3.4",
+    entry_points={
+        "console_scripts": ["audiobook = audiobook.__main__:main"],
+    },
 )
