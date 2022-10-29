@@ -1,5 +1,5 @@
-As a library
-------------
+import as module
+=========
 
 .. code-block:: python
 
@@ -10,6 +10,7 @@ As a library
 
 
 Read a book
+------------
 
 .. code-block:: python
 
@@ -23,6 +24,7 @@ Read a book
     ab.read_book("book.pdf", password="1234", extraction_engine="pdfminer")
 
 Save audio book
+------------
 
 .. code-block:: python
 
@@ -39,5 +41,6 @@ Save audio book
 
 
 save book as txt file
+------------
 
 Under development
