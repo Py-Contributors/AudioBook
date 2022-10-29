@@ -1,9 +1,8 @@
 Installation
------
------
+=========
 
 Install As Pip Package
-----------------------
+------------
 
 Install the package using pip:
 
@@ -12,6 +11,7 @@ Install the package using pip:
     pip install audiobook
 
 Install From Source
+------------
 
 .. code-block:: bash
 
@@ -23,14 +23,21 @@ Install From Source
 
 
 Test Installation
+------------
 
 .. code-block:: bash
 
     audiobook --help
 
 Linux Installation Requirements
+------------
 
 If you are using a Linux system and the voice output is not working, then 
 Install espeak , ffmpeg and libespeak1 as shown below:
 
-sudo apt update && sudo apt install espeak ffmpeg libespeak1
+.. code-block:: bash
+
+    sudo apt-get install espeak ffmpeg libespeak1
+
+
+

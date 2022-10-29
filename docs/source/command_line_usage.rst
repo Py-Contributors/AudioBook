@@ -1,9 +1,9 @@
-Usages
------
------
+Command line Usage
+=========
 
 `AudioBook` can be used as a command line tool and as a library.
 only the command line tool is documented here.
+
 
 Only basic functionality is implemented.  The following features are not yet implemented:
 
@@ -11,6 +11,11 @@ Only basic functionality is implemented.  The following features are not yet imp
 *   `--volume` option
 *   `--speed` option
 *   `--save_chapterwise` option
+
+Support Format and extraction method
+------------
+
+`AudioBook` supports the following formats and extraction methods:
 
 =========== ================== ===============
 File Format Supported          extraction_engine
@@ -26,7 +31,7 @@ ODT         ✅                 default set
 
 
 As command line tool
------------------
+------------
 
 .. code-block:: bash
 
@@ -45,13 +50,23 @@ As command line tool
 
     commands: read, save, create
 
+Get AudioBook version
+------------
+
+.. code-block:: bash
+
+    $ audiobook --version
+
+
 Read a book
+------------
 
 .. code-block:: bash
 
     $ audiobook -p <file_path> -r
 
 Save audio book
+------------
 
 .. code-block:: bash
 
@@ -62,47 +77,3 @@ Create a json file
 .. code-block:: bash
 
     $ audiobook -p <file_path> -c
-
-As a library
-------------
-
-.. code-block:: python
-
-    from audiobook import AudioBook
-
-    # argument: Speech-Speed="slow/normal/fast", volume = 0.0 to 1.0
-    ab = AudioBook(speed="normal", volume=1.0) 
-
-
-Read a book
-
-.. code-block:: python
-
-    ab.read_book(book_path) 
-    # additional parameter:
-        #  - password (if book is password protected)
-        #  - extraction_engine (default: "pypdf2/pdfminer") for pdf files
-    
-    # example:
-
-    ab.read_book("book.pdf", password="1234", extraction_engine="pdfminer")
-
-Save audio book
-
-.. code-block:: python
-
-    ab.save_book(book_path, save_page_wise=False)
-    # additional parameter:
-        #  - password (if book is password protected)
-        #  - extraction_engine (default: "pypdf2/pdfminer") for pdf files
-        #  - save_page_wise (default: False)
-        #  - extraction_engine (default: "pypdf2/pdfminer") for pdf files
-
-    # example:
-
-    ab.save_book("book.pdf", password="1234", save_chapterwise=True, extraction_engine="pdfminer")
-
-
-save book as txt file
-
-Under development

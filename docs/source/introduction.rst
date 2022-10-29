@@ -1,6 +1,5 @@
 Introduction
------
------
+=========
 
 `AudioBook` library can be used to read your favorite books, magazines, web articles, etc. out loud. 
 It is a simple and easy to use library that can be used in any project. It is written in python and 
@@ -13,18 +12,19 @@ Use cases
 - Convert your favorite books, magazines, web articles, etc. to json files.
 
 Supported formats
------
+------------
 
-*   .pdf
-*   .epub
-*   .mobi
-*   .txt
-*   .rst
-*   .html
-*   .docs
+*  Pdf
+*  Epub
+*  Mobi
+*  Txt
+*  Rst
+*  Html
+*  Docs
 
 
 Upcoming features
+------------
 
 *   Support for more formats
 *   Support for more languages
