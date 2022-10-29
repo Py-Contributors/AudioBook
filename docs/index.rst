@@ -58,7 +58,7 @@ Other Projects by Py-Contributors:
    :hidden:
 
    introduction.rst
-   sourceinstallation.rst
+   installation.rst
    command_line_usage.rst
    import_as_module.rst
    changelog.rst
