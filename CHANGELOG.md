@@ -4,11 +4,21 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
-## added
+## Proposed Changes/features
+
+- [x] Search book in the library
+- [x] Delete book from the library  
+
+## [V2.0.4]
 
 - [x] Extended pdf_parser to extract table of contents
+- [x] Command line Support added 
 - [x] Updated test cases 
-- [x] Added support for CI/CD 
+- [x] Added support for CircleCi CI/CD  
+
+## [V2.0.3] 
+
+- [x] Removed from PyPi 
 
 ## [V2.0.2] - 22-10-2022    
 
