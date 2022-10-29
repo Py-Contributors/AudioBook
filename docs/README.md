@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://py-contributors.github.io/audiobook/"><img src="https://capsule-render.vercel.app/api?type=rect&color=009ACD&height=100&section=header&text=audioBook&fontSize=80%&fontColor=ffffff" alt="website title image"></a>
-  <h2 align="center">👉 Listen to any PDF book with a few lines of Python code👈</h2>
+  <h2 align="center">👉 CLI tool to listen to your favourite book in Python 👈</h2>
 </p>
 
 <p align="center">
@@ -24,13 +24,7 @@
 
 Install using [pypi](https://pypi.org/project/audiobook/)
 
-### Linux(setup script)
-
-```sh
-sh setup.sh
-```
-
-### windows and linux
+### Using pip
 
 ```cmd
 pip install audiobook
@@ -43,6 +37,44 @@ The audiobook is a python module for listening to your favourite PDF (and not on
 Basic usage is exposed via CLI, type `python audiobook -h` for help.
 
 More advanced features are exposed via the API:
+
+```bash
+usage: audiobook [-h] [-p [PATH]] [-l | -c | -s | -r]
+
+AudioBook - listen to any PDF book
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p [PATH], --path [PATH]
+                        book file path
+  -l, --library         get all books in library
+  -c, --create-json     create json file from input file
+  -s, --save-audio      save audio files from input file
+  -r, --read-book       read the book from input file
+```
+
+#### Example
+
+```bash
+# to read the book
+audiobook -p "C:\Users\user\Documents\book.pdf" -r
+```
+
+```bash
+# to create json file
+audiobook -p "C:\Users\user\Documents\book.pdf" -c
+```
+
+```bash
+# to save audio files
+audiobook -p "C:\Users\user\Documents\book.pdf" -s
+```
+
+```bash
+# to get all books in library
+audiobook -l
+```
+
 
 ```python
 from audiobook import AudioBook
@@ -109,7 +141,6 @@ sudo apt update && sudo apt install espeak ffmpeg libespeak1
 This project is currently in development. Any contributions are welcome.
 
 ## Changelog
-
 
 **V2.0.2**
 
