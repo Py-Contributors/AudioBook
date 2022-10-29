@@ -1,4 +1,4 @@
-name: Python package
+name: Run Pytest
 
 on: [push, pull_request]
 
