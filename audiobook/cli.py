@@ -3,13 +3,12 @@ import os.path
 
 from audiobook.main import AudioBook, BOOK_DIR
 
-__version__ = "2.0.2"
+__version__ = "2.0.4"
 
 def main():
     parser = argparse.ArgumentParser(description="AudioBook - listen to any PDF book")
     parser.add_argument("-p", "--path", nargs="?", default=None, help="book file path")
     parser.add_argument('-v', '--version', action='version', version=__version__)
-    parser.add_argument("-l", "--list", action="store_true", help="list all books")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
