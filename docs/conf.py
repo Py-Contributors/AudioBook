@@ -6,8 +6,15 @@ author = 'Deeapk Raj'
 release = '2.0.4'
 
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.viewcode',
+    'rst2pdf.pdfbuilder',
     'sphinx.ext.autosectionlabel'
 ]
+
+pdf_documents = [('index', u'documentation', 'My Docs', u'Me'), ]
 
 releases_github_path = "Py-Contributors/AudioBook"
 

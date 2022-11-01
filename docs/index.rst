@@ -10,7 +10,7 @@ Welcome to audiobook's documentation!
 
 |PyPI download month|
 
-.. |PyPI download month| image:: https://img.shields.io/pypi/dm/audiobook.svg
+.. |PyPI download month| image:: http://pepy.tech/badge/audiobook
    :target: https://pypi.python.org/pypi/audiobook/
 
 |PyPI version fury.io|
@@ -53,10 +53,10 @@ Other Projects by Py-Contributors:
 .. |forthebadge made-with-python| image:: http://ForTheBadge.com/images/badges/made-with-python.svg
    :target: https://www.python.org/
 
-
 .. toctree::
-   :hidden:
-
+   :maxdepth: 2
+   :caption: Contents:
+   
    introduction.rst
    installation.rst
    command_line_usage.rst
