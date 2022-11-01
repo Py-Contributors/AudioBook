@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://py-contributors.github.io/audiobook/"><img src="https://capsule-render.vercel.app/api?type=rect&color=009ACD&height=100&section=header&text=audioBook&fontSize=80%&fontColor=ffffff" alt="website title image"></a>
-  <h2 align="center">👉 Listen to any PDF book with a few lines of Python code👈</h2>
+  <h2 align="center">👉 CLI tool to listen to your favourite book in Python 👈</h2>
 </p>
 
 <p align="center">
@@ -17,7 +17,6 @@
 </p>
 <p align="center">
 <a href="https://discord.gg/JfbK3bS"><img src="https://img.shields.io/discord/758030555005714512.svg?label=Discord&logo=Discord&colorB=7289da&style=for-the-badge" alt="discord invite"></a>
-<img src="https://img.shields.io/github/pipenv/locked/dependency-version/py-contributors/audiobook/pyttsx3?style=for-the-badge" alt="pyttsx3">
 <a href="https://api.github.com/repos/py-contributors/audiobook/contributors"><img src="https://img.shields.io/github/contributors/py-contributors/audiobook?style=for-the-badge" alt="total contributors"></a>
 </p>
 
@@ -25,9 +24,57 @@
 
 Install using [pypi](https://pypi.org/project/audiobook/)
 
-```sh
+### Using pip
+
+```cmd
 pip install audiobook
 ```
+
+## Usages
+
+The audiobook is a python module for listening to your favourite PDF (and not only) book.
+
+Basic usage is exposed via CLI, type `python audiobook -h` for help.
+
+More advanced features are exposed via the API:
+
+```bash
+usage: audiobook [-h] [-p [PATH]] [-l | -c | -s | -r]
+
+AudioBook - listen to any PDF book
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p [PATH], --path [PATH]
+                        book file path
+  -l, --library         get all books in library
+  -c, --create-json     create json file from input file
+  -s, --save-audio      save audio files from input file
+  -r, --read-book       read the book from input file
+```
+
+#### Example
+
+```bash
+# to read the book
+audiobook -p "C:\Users\user\Documents\book.pdf" -r
+```
+
+```bash
+# to create json file
+audiobook -p "C:\Users\user\Documents\book.pdf" -c
+```
+
+```bash
+# to save audio files
+audiobook -p "C:\Users\user\Documents\book.pdf" -s
+```
+
+```bash
+# to get all books in library
+audiobook -l
+```
+
 
 ```python
 from audiobook import AudioBook
@@ -35,17 +82,31 @@ from audiobook import AudioBook
 ab = AudioBook(speed="normal", volume=1.0) 
 
 # if file is password protected, pass password as argument
+# save_page_wise audio/whole book in one mp3 file
+ab.save_audio(self, input_book_path, password=None, save_page_wise=False): 
 
-ab.save_audio(file_path) # save audio file 
+- input_book_path: path to pdf file
+- password: password to pdf file
+- save_page_wise: if True, saves each page as a separate mp3 file
+- extraction_engine: "pypdf2/pdfminor" for extracting text from pdf file
+
 ab.read_book(file_path) # listen to the book
 ab.create_json_book(file_path) # create json file of the book
 
 ab.get_library() # get all the books in your library
 ```
 
-## Usages
+## Supported File Formats
 
-The audiobook is a python module for listening to your favourite PDF book.
+| File Format | Supported | Engine |
+| :--- | :---: | :---: |
+| PDF | :white_check_mark: | pypdf2/pdfminor |
+| TXT | :white_check_mark: |  not required  |
+| EPUB | :white_check_mark: | not required  |
+| MOBI | :white_check_mark: | not required  |
+| HTML | :white_check_mark: | not required  |
+| DOCX | :white_check_mark: | not required  |
+| ODT | :white_check_mark: | not required  |
 
 ## Test
 
@@ -81,6 +142,19 @@ This project is currently in development. Any contributions are welcome.
 
 ## Changelog
 
+**V2.0.2**
+
+- [x] Docs files support added
+- [x] Pdfminor as engine added 
+- [x] ODT file support added
+
+**V2.0.1**
+
+- [x] Mobi file support
+- [x] Epub file support
+- [x] User can now save the audiobook for future
+- [x] User can now listen to the book from the library
+
 **V2.0.0**
 
 - [x] Save Audio Book locally
@@ -88,8 +162,10 @@ This project is currently in development. Any contributions are welcome.
 - [x] Speech-speed control
 - [x] Read password-protected PDF
 - [x] Create JSON file for the book  
-- [ ] Change the voice of the narrator
 
+** Upcoming changes**
+
+- [ ] Change the voice of the narrator
 - [ ] Support more extensions
 
 
