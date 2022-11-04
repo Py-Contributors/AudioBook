@@ -5,6 +5,7 @@ from audiobook.main import AudioBook, BOOK_DIR
 
 __version__ = "2.0.4"
 
+
 def main():
     parser = argparse.ArgumentParser(description="AudioBook - listen to any PDF book")
     parser.add_argument("-p", "--path", nargs="?", default=None, help="book file path")
