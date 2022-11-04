@@ -30,71 +30,10 @@ Install using [pypi](https://pypi.org/project/audiobook/)
 pip install audiobook
 ```
 
-## Usages
+## Documentation
 
-The audiobook is a python module for listening to your favourite PDF (and not only) book.
+Check the full documentation here:- [Read the docs](https://pycontributors.readthedocs.io/projects/Audiobook/en/latest/)
 
-Basic usage is exposed via CLI, type `python audiobook -h` for help.
-
-More advanced features are exposed via the API:
-
-```bash
-usage: audiobook [-h] [-p [PATH]] [-l | -c | -s | -r]
-
-AudioBook - listen to any PDF book
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -p [PATH], --path [PATH]
-                        book file path
-  -l, --library         get all books in library
-  -c, --create-json     create json file from input file
-  -s, --save-audio      save audio files from input file
-  -r, --read-book       read the book from input file
-```
-
-#### Example
-
-```bash
-# to read the book
-audiobook -p "C:\Users\user\Documents\book.pdf" -r
-```
-
-```bash
-# to create json file
-audiobook -p "C:\Users\user\Documents\book.pdf" -c
-```
-
-```bash
-# to save audio files
-audiobook -p "C:\Users\user\Documents\book.pdf" -s
-```
-
-```bash
-# to get all books in library
-audiobook -l
-```
-
-
-```python
-from audiobook import AudioBook
-# argument: Speech-Speed="slow/normal/fast", volume = 0.0 to 1.0
-ab = AudioBook(speed="normal", volume=1.0) 
-
-# if file is password protected, pass password as argument
-# save_page_wise audio/whole book in one mp3 file
-ab.save_audio(self, input_book_path, password=None, save_page_wise=False): 
-
-- input_book_path: path to pdf file
-- password: password to pdf file
-- save_page_wise: if True, saves each page as a separate mp3 file
-- extraction_engine: "pypdf2/pdfminor" for extracting text from pdf file
-
-ab.read_book(file_path) # listen to the book
-ab.create_json_book(file_path) # create json file of the book
-
-ab.get_library() # get all the books in your library
-```
 
 ## Supported File Formats
 
@@ -108,66 +47,14 @@ ab.get_library() # get all the books in your library
 | DOCX | :white_check_mark: | not required  |
 | ODT | :white_check_mark: | not required  |
 
-## Test
 
-Run tests:
+## Changelog and Release Notes
 
-```sh
-pip install -r requirements.txt
-python -m unittest tests
-```
-
-## Documentation
-
-Read Detailed [Documentation here](https://audiobook.readthedocs.io/)
-
-### Linux Installation Requirements
-
-- If you are using a Linux system and the voice output is not working, then :
-    Install espeak , ffmpeg and libespeak1 as shown below:
-
-```sh
-sudo apt update && sudo apt install espeak ffmpeg libespeak1
-```
-
-## Roadmap
-
-- Speech-Speed Control
-- Support more extensions
-- Save the audiobook for future
+Check the changelog and release notes [here](/CHANGELOG.md)
 
 ## Project status
 
-This project is currently in development. Any contributions are welcome.
-
-## Changelog
-
-**V2.0.2**
-
-- [x] Docs files support added
-- [x] Pdfminor as engine added 
-- [x] ODT file support added
-
-**V2.0.1**
-
-- [x] Mobi file support
-- [x] Epub file support
-- [x] User can now save the audiobook for future
-- [x] User can now listen to the book from the library
-
-**V2.0.0**
-
-- [x] Save Audio Book locally
-- [x] Listen to the book
-- [x] Speech-speed control
-- [x] Read password-protected PDF
-- [x] Create JSON file for the book  
-
-** Upcoming changes**
-
-- [ ] Change the voice of the narrator
-- [ ] Support more extensions
-
+This project is currently in development. contributions are welcome.
 
 ## Author
 
