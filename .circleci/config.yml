@@ -1,6 +1,9 @@
 version: 2.1
 orbs:
   python: circleci/python@1.5.0
+  codecov: codecov/codecov@3.0.0
+
+
 jobs:
   build-and-test:
     docker:
@@ -15,9 +18,15 @@ jobs:
       - run:
           name: Run tests
           command: pytest
-
+  codecov:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - codecov/upload
 
 workflows:
   run_test_cases:
     jobs:
       - build-and-test
+      - codecov

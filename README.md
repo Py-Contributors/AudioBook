@@ -3,6 +3,10 @@
   <h2 align="center">👉 CLI tool to listen to your favourite book in Python 👈</h2>
 </p>
 
+![](https://circleci.com/gh/pycontributors/audiobook.svg?style=svg)
+
+![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)
+
 <p align="center">
 <img src="https://img.shields.io/badge/Python-3.8.5-lightgrey?style=for-the-badge" alt="repo language">
 <a href="https://github.com/py-contributors/audiobook/stargazers"><img src="https://img.shields.io/github/stars/py-contributors/audiobook?style=for-the-badge" alt="github stars"></a>
