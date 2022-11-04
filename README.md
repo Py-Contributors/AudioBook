@@ -3,10 +3,6 @@
   <h2 align="center">👉 CLI tool to listen to your favourite book in Python 👈</h2>
 </p>
 
-![](https://circleci.com/gh/pycontributors/audiobook.svg?style=svg)
-
-![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)
-
 <p align="center">
 <img src="https://img.shields.io/badge/Python-3.8.5-lightgrey?style=for-the-badge" alt="repo language">
 <a href="https://github.com/py-contributors/audiobook/stargazers"><img src="https://img.shields.io/github/stars/py-contributors/audiobook?style=for-the-badge" alt="github stars"></a>
@@ -43,30 +39,17 @@ Check the full documentation here:- [Read the docs](https://pycontributors.readt
 
 | File Format | Supported | Engine |
 | :--- | :---: | :---: |
-| PDF | :white_check_mark: | pypdf2/pdfminor |
-| TXT | :white_check_mark: |  not required  |
-| EPUB | :white_check_mark: | not required  |
-| MOBI | :white_check_mark: | not required  |
-| HTML | :white_check_mark: | not required  |
-| DOCX | :white_check_mark: | not required  |
-| ODT | :white_check_mark: | not required  |
-
+| PDF | ✅ | pypdf2/pdfminor |
+| TXT | ✅ |  not required  |
+| EPUB | ✅ | not required  |
+| MOBI | ✅ | not required  |
+| HTML | ✅ | not required  |
+| DOCX | ✅ | not required  |
+| ODT | ✅ | not required  |
 
 ## Changelog and Release Notes
 
 Check the changelog and release notes [here](/CHANGELOG.md)
-
-## Project status
-
-This project is currently in development. contributions are welcome.
-
-## Author
-
-- Module : AudioBook
-- Author  : py-contributors
-- Language : Python
-
-<img align="right" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=for-the-badge">
 
 ## Contributors
 
