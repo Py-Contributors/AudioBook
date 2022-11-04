@@ -14,8 +14,13 @@ setuptools.setup(
     url="https://github.com/codePerfectPlus/audiobook",
     keywords="audiobook",
     packages=setuptools.find_packages(),
+    project_urls= {
+        "Documentation": "https://pycontributors.readthedocs.io/projects/Audiobook/en/latest/",
+        "Source": "https://github.com/Py-Contributors/AudioBook",
+        "Tracker": "https://github.com/Py-Contributors/AudioBook/issues"
+    },
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",

@@ -7,14 +7,15 @@ All notable changes to this project will be documented in this file. The format 
 ## Proposed Changes/features
 
 - [x] Search book in the library
-- [x] Delete book from the library  
+- [x] Delete book from the library
+- [x] Cythonize the code   
 
-## [V2.0.4]
+## [V2.0.4] -  01-11-2022
 
 - [x] Extended pdf_parser to extract table of contents
 - [x] Command line Support added 
 - [x] Updated test cases 
-- [x] Added support for CircleCi CI/CD  
+- [x] Added support for CircleCi CI/CD
 
 ## [V2.0.3] 
 
