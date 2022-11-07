@@ -3,14 +3,18 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
 setuptools.setup(
     name="audiobook",
-    version="2.0.4",
+    version="3.0.0",
     author="CodePerfectPlus",
     author_email="deepak008@live.com",
     description="Listen to your favourite audiobook",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    install_requires=required,
     url="https://github.com/codePerfectPlus/audiobook",
     keywords="audiobook",
     packages=setuptools.find_packages(),

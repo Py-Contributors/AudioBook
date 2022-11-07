@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
-## Proposed Changes/features
+## Upcoming
 
 - [x] Search book in the library
 - [x] Delete book from the library
-- [x] Cythonize the code   
+- [x] Cythonize the code  
+
+## [3.0.0] - 07-11-2022
+
+- [x] Added support for `--version` flag
+- [x] Added bash scripts for complete automation of the release process   
 
 ## [V2.0.4] -  01-11-2022
 
