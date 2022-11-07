@@ -3,7 +3,7 @@ import os.path
 
 from audiobook.main import AudioBook, BOOK_DIR
 
-__version__ = "2.0.4"
+__version__ = "3.0.0"
 
 
 def main():
