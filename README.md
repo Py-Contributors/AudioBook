@@ -34,6 +34,9 @@ pip install audiobook
 
 Check the full documentation here:- [Read the docs](https://pycontributors.readthedocs.io/projects/Audiobook/en/latest/)
 
+## Contributing
+
+Check the [Contributing](https://github.com/Py-Contributors/AudioBook/blob/dev/CONTRIBUTING.md) for the contribution guidelines.
 
 ## Supported File Formats
 
