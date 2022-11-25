@@ -27,7 +27,7 @@ We love your input! We want to make contributing to this project as easy and tra
 - Keep your cloned repo upto date by pulling from upstream (this will also avoid any merge conflicts while committing new changes)
 
     ```sh
-    git pull upstream master
+    git pull upstream dev
     ```
 
 - Create your feature branch
@@ -36,10 +36,16 @@ We love your input! We want to make contributing to this project as easy and tra
     git checkout -b <feature-name>
     ```
 
+- Include the changes you have made for commits
+
+    ```sh
+    git add <name-of-file>
+    ```
+
 - Commit all the changes
 
     ```sh
-    git commit -am "Meaningful commit message"
+    git commit -m "Meaningful commit message"
     ```
 
 - Push the changes for review
