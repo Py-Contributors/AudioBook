@@ -42,9 +42,9 @@ class AudioBook(object):
     """
 
     def __init__(self, speed="normal", volume=1.0):
-        self.engine = pyttsx3.init()
-        self.engine.setProperty("rate", speed_dict[speed])
-        self.engine.setProperty("volume", volume)
+        self.__engine = pyttsx3.init()
+        self.__engine.setProperty("rate", speed_dict[speed])
+        self.__engine.setProperty("volume", volume)
 
     def get_library(self):
         """get all books in library"""
@@ -82,7 +82,7 @@ class AudioBook(object):
             json_book, metadata = epub_to_json(input_book_path)
         elif input_book_path.endswith(".mobi"):
             json_book, metadata = mobi_to_json(input_book_path)
-        elif input_book_path.startswith("http"):
+        elif input_book_path.startswith(("http", "https")):
             json_book, metadata = html_to_json(input_book_path)
         elif input_book_path.endswith((".docx", ".doc")):
             json_book, metadata = docs_to_json(input_book_path)
@@ -106,21 +106,21 @@ class AudioBook(object):
 
         if save_page_wise:
             for page_num, text in tqdm(json_book.items()):
-                self.engine.save_to_file(
+                self.__engine.save_to_file(
                     text,
                     os.path.join(
                         book_name,
                         book_name + "_page_" + (str(page_num)) + ".mp3",
                     ),
                 )
-                self.engine.runAndWait()
+                self.__engine.runAndWait()
 
         elif not save_page_wise:
             all_text = " ".join([text for text in json_book.values()])
-            self.engine.save_to_file(
+            self.__engine.save_to_file(
                 all_text, os.path.join(book_name, book_name + ".mp3")
             )
-            self.engine.runAndWait()
+            self.__engine.runAndWait()
 
     def read_book(self, input_book_path, password=None, extraction_engine=None):
         """method to read the book
@@ -131,24 +131,24 @@ class AudioBook(object):
 
         pages = metadata["pages"]
 
-        speak_text(self.engine, f"The book has total {str(pages)} pages!")
+        speak_text(self.__engine, f"The book has total {str(pages)} pages!")
         speak_text(
-            self.engine, "Please enter the page number: ", display=False
+            self.__engine, "Please enter the page number: ", display=False
         )
         start_page = int(input("Please enter the page number: ")) - 1
 
         reading = True
         while reading:
             if start_page > pages or start_page < 0:
-                speak_text(self.engine, "Invalid page number!")
+                speak_text(self.__engine, "Invalid page number!")
                 speak_text(
-                    self.engine, f"The book has total {str(pages)} pages!"
+                    self.__engine, f"The book has total {str(pages)} pages!"
                 )
                 start_page = int(input("Please enter the page number: "))
 
-            speak_text(self.engine, f"Reading page {str(start_page+1)}")
+            speak_text(self.__engine, f"Reading page {str(start_page+1)}")
             pageText = json_book[str(start_page)]
-            speak_text(self.engine, pageText, display=False)
+            speak_text(self.__engine, pageText, display=False)
 
             input_message = "Please Select an option: \n "
             "1. Type 'r' to read again: \n "
@@ -159,18 +159,18 @@ class AudioBook(object):
 
             user_input = input(input_message)
             if user_input == "r":
-                speak_text(self.engine, f"Reading page {str(start_page+1)}")
+                speak_text(self.__engine, f"Reading page {str(start_page+1)}")
                 continue
             elif user_input == "p":
-                speak_text(self.engine, "Reading previous page")
+                speak_text(self.__engine, "Reading previous page")
                 start_page -= 1
                 continue
             elif user_input == "n":
-                speak_text(self.engine, "Reading next page")
+                speak_text(self.__engine, "Reading next page")
                 start_page += 1
                 continue
             elif user_input == "q":
-                speak_text(self.engine, "Quitting the book!")
+                speak_text(self.__engine, "Quitting the book!")
                 break
             elif user_input.isnumeric():
                 start_page = int(user_input) - 1

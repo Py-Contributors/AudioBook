@@ -1,6 +1,9 @@
 import argparse
 import os.path
 
+import sys
+sys.path.append('.')
+
 from audiobook.main import AudioBook, BOOK_DIR
 
 __version__ = "3.0.0"
