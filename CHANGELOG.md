@@ -10,6 +10,12 @@ All notable changes to this project will be documented in this file. The format 
 - [x] Delete book from the library
 - [x] Cythonize the code  
 
+
+## [3.0.1] - 03-12-2022
+
+- [x] - Improved code quaity
+- [x] - Read web article bug fixed with https  
+
 ## [3.0.0] - 07-11-2022
 
 - [x] Added support for `--version` flag
