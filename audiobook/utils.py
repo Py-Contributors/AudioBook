@@ -76,20 +76,23 @@ def mobi_to_json(input_book_path):
     return json_book, metadata
 
 
-def pdf_to_json(input_book_path, password=None, extraction_engine="pypdf2"):
+def pdf_to_json(input_book_path, password=None):
     """sub method to create json book from pdf file"""
     metadata = {}
     json_book = {}
     basename = os.path.basename(input_book_path).split(".")[0]
-    if extraction_engine is None or extraction_engine == "pdfminer":
-        print("Using pdfminer")
-        pdf_parser = PdfMinerDocParser()
-    elif extraction_engine == "pypdf2":
-        print("Using pypdf2")
-        pdf_parser = PyPDF2DocParser()
-    else:
-        raise NotImplementedError("Only pdfminer and pypdf2 are supported")
 
+    # removed pdf parser selection(only pydf2 is supported now)
+    # if extraction_engine is None or extraction_engine == "pdfminer":
+    #     print("Using pdfminer")
+    #     pdf_parser = PdfMinerDocParser()
+    # elif extraction_engine == "pypdf2":
+    #     print("Using pypdf2")
+    #     pdf_parser = PyPDF2DocParser()
+    # else:
+    #     raise NotImplementedError("Only pdfminer and pypdf2 are supported")
+
+    pdf_parser = PyPDF2DocParser()
     text = pdf_parser.get_text(input_book_path, password=password)
     text = text_preprocessing(text)
 

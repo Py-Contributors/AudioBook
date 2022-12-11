@@ -56,7 +56,7 @@ class AudioBook(object):
         )
         return total_books
 
-    def create_json_book(self, input_book_path, password=None, extraction_engine=None, load_from_library=False):
+    def create_json_book(self, input_book_path, password=None, load_from_library=False):
         """method to create json book from input file
         it calls respective method based on file format"""
         json_filename = (
@@ -75,7 +75,7 @@ class AudioBook(object):
         elif input_book_path.endswith(".odt"):
             json_book, metadata = odt_to_json(input_book_path)
         elif input_book_path.endswith(".pdf"):
-            json_book, metadata = pdf_to_json(input_book_path, password, extraction_engine=extraction_engine)
+            json_book, metadata = pdf_to_json(input_book_path, password)
         elif input_book_path.endswith(".txt"):
             json_book, metadata = txt_to_json(input_book_path)
         elif input_book_path.endswith(".epub"):
@@ -93,10 +93,10 @@ class AudioBook(object):
 
         return json_book, metadata
 
-    def save_audio(self, input_book_path, password=None, save_page_wise=False, extraction_engine=None):
+    def save_audio(self, input_book_path, password=None, save_page_wise=False):
         """method to save audio files in folder"""
 
-        json_book, metadata = self.create_json_book(input_book_path, password, extraction_engine)
+        json_book, metadata = self.create_json_book(input_book_path, password)
 
         book_name = metadata["book_name"]
         book_dir = os.path.join(BOOK_DIR, book_name)
@@ -122,12 +122,12 @@ class AudioBook(object):
             )
             self.__engine.runAndWait()
 
-    def read_book(self, input_book_path, password=None, extraction_engine=None):
+    def read_book(self, input_book_path, password=None):
         """method to read the book
 
         input_book_path: filepath, url path or book name
         """
-        json_book, metadata = self.create_json_book(input_book_path, password, extraction_engine)
+        json_book, metadata = self.create_json_book(input_book_path, password)
 
         pages = metadata["pages"]
 

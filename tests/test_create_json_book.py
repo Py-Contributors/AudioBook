@@ -20,11 +20,11 @@ class TestAudioBook(unittest.TestCase):
     def test_txt_to_json_pdf_miner(self):
         self.assertEqual(ab.create_json_book("assets/sample.txt"), output_txt)
 
-    def test_pdf_to_json_pdf_miner(self):
-        self.assertEqual(ab.create_json_book("assets/sample.pdf", extraction_engine="pdfminer"), output_txt)
+    # def test_pdf_to_json_pdf_miner(self):  #  pdfminer support added
+    #     self.assertEqual(ab.create_json_book("assets/sample.pdf"), output_txt)
 
     def test_pdf_to_json_pypdf2(self):
-        self.assertEqual(ab.create_json_book("assets/sample.pdf", extraction_engine="pypdf2"), output_txt)
+        self.assertEqual(ab.create_json_book("assets/sample.pdf"), output_txt)
 
     def test_odt_to_json(self):
         self.assertEqual(ab.create_json_book("assets/sample.odt"), output_txt)

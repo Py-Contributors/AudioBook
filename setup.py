@@ -8,14 +8,14 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="audiobook",
-    version="3.0.1",
+    version="3.0.2",
     author="CodePerfectPlus",
     author_email="deepak008@live.com",
     description="Listen to your favourite audiobook",
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=required,
-    url="https://github.com/codePerfectPlus/audiobook",
+    url="https://github.com/Py-Contributors/audiobook",
     keywords="audiobook",
     packages=setuptools.find_packages(),
     project_urls= {
@@ -24,7 +24,7 @@ setuptools.setup(
         "Tracker": "https://github.com/Py-Contributors/AudioBook/issues"
     },
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
