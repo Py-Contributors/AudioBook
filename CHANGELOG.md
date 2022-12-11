@@ -10,6 +10,10 @@ All notable changes to this project will be documented in this file. The format 
 - [x] Delete book from the library
 - [x] Cythonize the code  
 
+## [3.0.2]
+
+- [x] - Updated the outdated dependencies
+- [x] - Dropping support for pdfminer(it's not maintained anymore) last maintained in 2019 
 
 ## [3.0.1] - 03-12-2022
 
