@@ -1,6 +1,6 @@
 pyttsx3==2.90
-PyPDF2==2.11.1
-ebooklib==0.17.1
+PyPDF2==2.12.1
+ebooklib==0.18
 beautifulsoup4==4.11.1
 html2text==2020.1.16
 mobi==0.3.3
@@ -8,14 +8,7 @@ docx2txt>=0.8
 requests>=2.28.1
 tqdm>=4.64.1
 pdfminer>=20191125
-# for odt module
 defusedxml==0.7.1
 odfpy==1.4.1
-
-# for readthedocs
-# jinja2<3.1.0 
-# Markdown<3.2
-
-# for CI/CD
-pytest
-flake8
+pytest==7.2.0
+flake8==6.0.0
