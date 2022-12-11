@@ -17,11 +17,8 @@ Read a book
     ab.read_book(book_path) 
     # additional parameter:
         #  - password (if book is password protected)
-        #  - extraction_engine (default: "pypdf2/pdfminer") for pdf files
-    
     # example:
-
-    ab.read_book("book.pdf", password="1234", extraction_engine="pdfminer")
+    ab.read_book("book.pdf", password="1234")
 
 Save audio book
 ------------
@@ -31,10 +28,7 @@ Save audio book
     ab.save_book(book_path, save_page_wise=False)
     # additional parameter:
         #  - password (if book is password protected)
-        #  - extraction_engine (default: "pypdf2/pdfminer") for pdf files
         #  - save_page_wise (default: False)
-        #  - extraction_engine (default: "pypdf2/pdfminer") for pdf files
-
     # example:
 
     ab.save_book("book.pdf", password="1234", save_chapterwise=True, extraction_engine="pdfminer")

@@ -40,15 +40,15 @@ Check the [Contributing](https://github.com/Py-Contributors/AudioBook/blob/dev/C
 
 ## Supported File Formats
 
-| File Format | Supported | Engine |
-| :--- | :---: | :---: |
-| PDF | ✅ | pypdf2/pdfminor |
-| TXT | ✅ |  not required  |
-| EPUB | ✅ | not required  |
-| MOBI | ✅ | not required  |
-| HTML | ✅ | not required  |
-| DOCX | ✅ | not required  |
-| ODT | ✅ | not required  |
+| File Format | Supported |
+| :--- | :---: |
+| PDF | ✅ |
+| TXT | ✅ |
+| EPUB | ✅ |
+| MOBI | ✅ |
+| HTML | ✅ |
+| DOCX | ✅ |
+| ODT | ✅ |
 
 ## Changelog and Release Notes
 

@@ -13,7 +13,7 @@ from odf.opendocument import load
 
 from audiobook.doc_parser.web_parser import ArticleWebScraper
 from audiobook.doc_parser.pdf_parser import PyPDF2DocParser
-from audiobook.doc_parser.pdf_parser import PdfMinerDocParser
+# from audiobook.doc_parser.pdf_parser import PdfMinerDocParser
 
 
 def load_json(filename):
