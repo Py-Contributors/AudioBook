@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 from ebooklib import epub
 from odf import text, teletype
 from odf.opendocument import load
+from striprtf.striprtf import rtf_to_text
 
 from audiobook.doc_parser.web_parser import ArticleWebScraper
 from audiobook.doc_parser.pdf_parser import PyPDF2DocParser
@@ -135,6 +136,25 @@ def txt_to_json(input_book_path):
     book_name = os.path.basename(input_book_path).split(".")[0]
     with open(input_book_path, "r") as fp:
         file_txt_data = fp.read()
+    file_txt_data = text_preprocessing(file_txt_data)
+
+    for i in range(0, len(file_txt_data), 2000):
+        page_num = i // 2000
+        json_book[str(page_num)] = file_txt_data[i: i + 2000]
+
+    metadata["pages"] = len(json_book)
+    metadata["book_name"] = book_name
+    return json_book, metadata
+
+
+def rtf_to_json(input_book_path):
+    """sub method to create json book from rtf file"""
+    json_book = {}
+    metadata = {}
+    book_name = os.path.basename(input_book_path).split(".")[0]
+    with open(input_book_path, "r") as fp:
+        file_rtf_data = fp.read()
+    file_txt_data = rtf_to_text(file_rtf_data , errors="ignore")
     file_txt_data = text_preprocessing(file_txt_data)
 
     for i in range(0, len(file_txt_data), 2000):
