@@ -55,6 +55,7 @@ Check the [Contributing](https://github.com/Py-Contributors/AudioBook/blob/dev/C
 | HTML | ✅ |
 | DOCX | ✅ |
 | ODT | ✅ |
+| RTF | ✅ |
 
 ## Changelog and Release Notes
 
