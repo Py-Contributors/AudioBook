@@ -1,9 +1,8 @@
 from datetime import datetime
 
 project = 'audiobook'
-copyright = '2022, Deeapk Raj'
 author = 'Deeapk Raj'
-release = '2.0.4'
+release = '3.0.2'
 
 extensions = [
     'sphinx.ext.autodoc',
