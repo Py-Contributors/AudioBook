@@ -18,6 +18,7 @@ from audiobook.utils import (
     write_json_file,
     rtf_to_json
 )
+from audiobook.utils import get_json_metadata
 
 logger = logging.getLogger("PyPDF2")
 logger.setLevel(logging.INFO)
@@ -60,9 +61,8 @@ class AudioBook(object):
     def create_json_book(self, input_book_path, password=None, load_from_library=False):
         """method to create json book from input file
         it calls respective method based on file format"""
-        json_filename = (
-            os.path.basename(input_book_path).split(".")[0] + ".json"
-        )
+        json_filename = (os.path.basename(input_book_path).split(".")[0] + ".json")
+        output_file_path = os.path.join(BOOK_DIR, json_filename)
 
         if load_from_library:
             print("Loading book from library")
@@ -73,26 +73,12 @@ class AudioBook(object):
                 metadata["pages"] = len(json_book)
                 return json_book, metadata
 
-        elif input_book_path.endswith(".odt"):
-            json_book, metadata = odt_to_json(input_book_path)
-        elif input_book_path.endswith(".pdf"):
-            json_book, metadata = pdf_to_json(input_book_path, password)
-        elif input_book_path.endswith(".txt"):
-            json_book, metadata = txt_to_json(input_book_path)
-        elif input_book_path.endswith(".epub"):
-            json_book, metadata = epub_to_json(input_book_path)
-        elif input_book_path.endswith(".mobi"):
-            json_book, metadata = mobi_to_json(input_book_path)
-        elif input_book_path.startswith(("http", "https")):
-            json_book, metadata = html_to_json(input_book_path)
-        elif input_book_path.endswith((".docx", ".doc")):
-            json_book, metadata = docs_to_json(input_book_path)
-        elif input_book_path.endswith(".rtf"):
-            json_book, metadata = rtf_to_json(input_book_path)
+        if json_book:
+            json_book, metadata = get_json_metadata(input_book_path=input_book_path, password=password)
         else:
-            raise NotImplementedError("Only PDF, TXT, EPUB, MOBI, ODT, HTTP, DOCX and DOC files are supported")
+            raise NotImplementedError("Only PDF, TXT, EPUB, MOBI, ODT, HTTP, RTF, DOCX and DOC files are supported")
 
-        write_json_file(json_book, os.path.join(BOOK_DIR, json_filename))
+        write_json_file(json_book, output_file_path)
 
         return json_book, metadata
 

@@ -216,3 +216,30 @@ def html_to_json(url):
     metadata["pages"] = len(json_book)
     metadata["book_name"] = book_name
     return json_book, metadata
+
+
+def get_json_metadata(input_book_path, password):
+    """ helper function to call the function based on the file type """
+    # get the file extension
+    json_book = {}
+    metadata = {}
+    file_extension = input_book_path.split(".")[-1]
+
+    if file_extension == "odt":
+        json_book, metadata = odt_to_json(input_book_path)
+    elif file_extension == "pdf":
+        json_book, metadata = pdf_to_json(input_book_path, password)
+    elif file_extension == "txt":
+        json_book, metadata = txt_to_json(input_book_path)
+    elif file_extension == "epub":
+        json_book, metadata = epub_to_json(input_book_path)
+    elif file_extension == "mobi":
+        json_book, metadata = mobi_to_json(input_book_path)
+    elif input_book_path.startswith(("http", "https")):
+        json_book, metadata = html_to_json(input_book_path)
+    elif input_book_path.endswith((".docx", ".doc")):
+        json_book, metadata = docs_to_json(input_book_path)
+    elif file_extension == "rtf":
+        json_book, metadata = rtf_to_json(input_book_path)
+
+    return json_book, metadata
