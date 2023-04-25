@@ -16,6 +16,7 @@ from audiobook.utils import (
     speak_text,
     txt_to_json,
     write_json_file,
+    rtf_to_json
 )
 
 logger = logging.getLogger("PyPDF2")
@@ -86,6 +87,8 @@ class AudioBook(object):
             json_book, metadata = html_to_json(input_book_path)
         elif input_book_path.endswith((".docx", ".doc")):
             json_book, metadata = docs_to_json(input_book_path)
+        elif input_book_path.endswith(".rtf"):
+            json_book, metadata = rtf_to_json(input_book_path)
         else:
             raise NotImplementedError("Only PDF, TXT, EPUB, MOBI, ODT, HTTP, DOCX and DOC files are supported")
 
