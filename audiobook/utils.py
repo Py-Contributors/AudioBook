@@ -3,8 +3,6 @@ import os
 import re
 import docx2txt
 import ebooklib
-import html2text
-import mobi
 from bs4 import BeautifulSoup
 from ebooklib import epub
 from odf import text, teletype
@@ -42,25 +40,6 @@ def speak_text(engine, text, display=True):
     engine.say(text)
     engine.runAndWait()
 
-# Helper function to convert mobi files to JSON format
-def mobi_to_json(input_book_path):
-    metadata = {}
-    json_book = {}
-    book_name = os.path.basename(input_book_path).split(".")[0]
-    tempdir, filepath = mobi.extract(input_book_path)
-    
-    with open(filepath, "r", encoding="utf-8") as fp:
-        content = fp.read()
-    
-    book_data = html2text.html2text(content)
-    book_data = text_preprocessing(book_data)
-
-    # Split content into chunks of 2000 characters
-    json_book = {str(i // 2000): book_data[i:i + 2000] for i in range(0, len(book_data), 2000)}
-    
-    metadata["pages"] = len(json_book)
-    metadata["book_name"] = book_name
-    return json_book, metadata
 
 # Helper function to convert PDF to JSON format
 def pdf_to_json(input_book_path, password=None):
@@ -182,14 +161,13 @@ def get_json_metadata(input_book_path, password=None):
         "pdf": pdf_to_json,
         "txt": txt_to_json,
         "epub": epub_to_json,
-        "mobi": mobi_to_json,
         "html": html_to_json,
         "docx": docs_to_json,
         "rtf": rtf_to_json
     }
 
     if file_extension in file_to_json:
-        json_book, metadata = file_to_json[file_extension](input_book_path, password)
+        json_book, metadata = file_to_json[file_extension](input_book_path)
     else:
         raise NotImplementedError(f"Unsupported file type: {file_extension}")
     
