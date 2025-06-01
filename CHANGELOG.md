@@ -10,6 +10,18 @@ All notable changes to this project will be documented in this file. The format 
 - [x] Delete book from the library
 - [x] Cythonize the code  
 
+
+## [3.0.4] - 01-06-2025
+
+- [x] Removed mobi file conversion
+- [ ] Updated dependencies in requirements.txt
+- [x] Updated the documentation
+
+## [3.0.3] - 20-01-2023
+
+- [x] - Bug fixed in the `read_web_article` function
+- [x] - Added support for `--help` flag
+
 ## [3.0.2]
 
 - [x] - Updated the outdated dependencies

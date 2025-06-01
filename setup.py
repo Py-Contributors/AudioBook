@@ -1,4 +1,5 @@
 import setuptools
+from fetch_and_bump_version import get_incremented_version
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -8,7 +9,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="audiobook",
-    version="3.0.4",
+    version=get_incremented_version("audiobook"),
     author="CodePerfectPlus",
     author_email="deepak008@live.com",
     description="Listen to your favourite audiobook",

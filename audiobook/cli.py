@@ -6,8 +6,7 @@ sys.path.append('.')
 
 from audiobook.main import AudioBook, BOOK_DIR
 
-__version__ = "3.0.2"
-
+__version__ = "3.0.5"
 
 def main():
     parser = argparse.ArgumentParser(prog="audiobook", description="AudioBook - listen to any PDF book")

@@ -2,7 +2,7 @@ from datetime import datetime
 
 project = 'audiobook'
 author = 'Deeapk Raj'
-release = '3.0.3'
+release = '3.0.5'
 
 extensions = [
     'sphinx.ext.autodoc',
