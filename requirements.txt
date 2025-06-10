@@ -5,7 +5,7 @@ beautifulsoup4==4.13.4
 html2text==2025.4.15
 mobi==0.3.3
 docx2txt==0.9
-requests==2.32.3
+requests==2.32.4
 tqdm==4.67.1
 pdfminer==20191125
 defusedxml==0.7.1
