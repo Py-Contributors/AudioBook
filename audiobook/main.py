@@ -12,7 +12,7 @@ from audiobook.utils import (
 )
 from audiobook.utils import get_json_metadata
 
-logger = logging.getLogger("PyPDF2")
+logger = logging.getLogger("pypdf")
 logger.setLevel(logging.INFO)
 
 expand_usr = os.path.expanduser("~")

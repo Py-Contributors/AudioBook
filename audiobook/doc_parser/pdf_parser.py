@@ -1,7 +1,7 @@
 import io
 import ast
 
-import PyPDF2
+import pypdf
 
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.pdfinterp import PDFPageInterpreter
@@ -69,9 +69,9 @@ class PdfMinerDocParser(object):
                 return output_toc
 
 
-class PyPDF2DocParser(object):
+class PyPDFDocParser(object):
     """
-    PyPdf2 Doc Parser:
+    pypdf Doc Parser:
 
     methods:
         1. get_metadata : get metadata of pdf file
@@ -89,25 +89,25 @@ class PyPDF2DocParser(object):
         """ function to read all the text from pdf file """
         pdf_data = ""
         with open(filepath, "rb") as fp:
-            pdfReader = PyPDF2.PdfFileReader(fp)
+            pdfReader = pypdf.PdfReader(fp)
             if password:
                 pdfReader.decrypt(password)
-            num_pages = pdfReader.numPages
+            num_pages = len(pdfReader.pages)
             if maxpages:
                 num_pages = min(num_pages, maxpages)
             for i in range(num_pages):
-                pageObj = pdfReader.getPage(i)
-                pdf_data += pageObj.extractText()
+                pageObj = pdfReader.pages[i]
+                pdf_data += pageObj.extract_text()
         return pdf_data
 
     def get_toc(self, filepath, password=None):
         outlines = []
 
         with open(filepath, "rb") as fp:
-            pdfReader = PyPDF2.PdfFileReader(fp, strict=False)
+            pdfReader = pypdf.PdfReader(fp)
             if password:
                 pdfReader.decrypt(password)
-            outlines = pdfReader.getOutlines()
+            outlines = pdfReader.outline
             if outlines:
                 outlines = str(outlines).replace("IndirectObject(", "[")
                 outlines = outlines.replace(")", "]").replace("/", "")

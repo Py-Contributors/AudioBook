@@ -20,7 +20,7 @@ Support Format and extraction method
 =========== ================== ===============
 File Format Supported          extraction_engine
 =========== ================== ===============
-PDF         ✅                 pypdf2/pdfminor
+PDF         ✅                 pypdf/pdfminor
 TXT         ✅                 default set                  
 EPUB        ✅                 default set                  
 MOBI        ✅                 default set                  

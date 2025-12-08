@@ -9,7 +9,7 @@ from odf import text, teletype
 from odf.opendocument import load
 from striprtf.striprtf import rtf_to_text
 from audiobook.doc_parser.web_parser import ArticleWebScraper
-from audiobook.doc_parser.pdf_parser import PyPDF2DocParser
+from audiobook.doc_parser.pdf_parser import PyPDFDocParser
 
 # Helper function to load JSON data from a file
 def load_json(filename):
@@ -47,7 +47,7 @@ def pdf_to_json(input_book_path, password=None):
     metadata = {}
     basename = os.path.basename(input_book_path).split(".")[0]
 
-    pdf_parser = PyPDF2DocParser()
+    pdf_parser = PyPDFDocParser()
     text = pdf_parser.get_text(input_book_path, password=password)
     text = text_preprocessing(text)
 
