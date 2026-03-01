@@ -1,5 +1,5 @@
 pyttsx3==2.98
-pypdf==4.0.1
+pypdf==6.7.4
 ebooklib==0.19
 beautifulsoup4==4.13.4
 html2text==2025.4.15
